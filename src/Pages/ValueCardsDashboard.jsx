@@ -44,7 +44,7 @@ function ValueCards({ template }) {
           <Grid item md={5} sx={{ margin: "auto" }}>
             <img
               width="95%"
-              src={`data:image/png;base64,${template?.templateFile}`}
+              src={`data:image/png;base64,${template?.logo}`}
               alt={template?.category ?? "Category"}
               loading="lazy"
             />
@@ -100,27 +100,6 @@ function ValueCardsDashboard({ templateData = [], setSelectedTemplate }) {
                   </Grid>)
               })
             }
-            {/* <Grid item md={3}>
-              <ValueCards />
-            </Grid>
-            <Grid item md={3}>
-              <ValueCards />
-            </Grid>
-            <Grid item md={3}>
-              <ValueCards />
-            </Grid>
-            <Grid item md={3}>
-              <ValueCards />
-            </Grid>
-            <Grid item md={3}>
-              <ValueCards />
-            </Grid>
-            <Grid item md={3}>
-              <ValueCards />
-            </Grid>
-            <Grid item md={3}>
-              <ValueCards />
-            </Grid> */}
           </Grid>
         </Stack>
       </Box>
