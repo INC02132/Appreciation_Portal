@@ -8,9 +8,10 @@ import {
   CardContent,
   CardMedia,
 } from "@mui/material";
-import React from "react";
+import axios from "axios";
+import React, { useEffect, useState } from "react";
 
-function ValueCards() {
+function ValueCards({ template }) {
   return (
     <div>
       <Card>
@@ -22,7 +23,7 @@ function ValueCards() {
             margin: "1rem 1rem 0 1rem",
           }}
         >
-          Customer Centricity
+          {template.category}
         </Typography>
         <Grid container sx={{ display: "flex" }}>
           <Grid item md={7}>
@@ -36,16 +37,15 @@ function ValueCards() {
                   textJustify: "inter-word",
                 }}
               >
-                Putting the customer first and at the center of everything that
-                you do.
+                {template.description}
               </Typography>
             </CardContent>
           </Grid>
           <Grid item md={5} sx={{ margin: "auto" }}>
             <img
               width="95%"
-              src="../Logos/Customer Centricity.png"
-              alt="Customer Centricity"
+              src={`data:image/png;base64,${template?.templateFile}`}
+              alt={template?.category ?? "Category"}
               loading="lazy"
             />
           </Grid>
@@ -55,9 +55,7 @@ function ValueCards() {
   );
 }
 
-function ValueCardsDashboard() {
-
-  const [templateData, setTemplateData] = useState([]);
+function ValueCardsDashboard({ templateData = [], setSelectedTemplate }) {
 
   return (
     <div>
@@ -96,13 +94,13 @@ function ValueCardsDashboard() {
           <Grid container spacing={2} sx={{ width: "97.5%" }}>
             {
               templateData.map((template) => {
-                return 
-            <Grid item md={3}>
-              <ValueCards />
-            </Grid>
+                return (
+                  <Grid key={template.templateId} item md={3} sx={{ cursor: "pointer" }} onClick={() => setSelectedTemplate(template)}>
+                    <ValueCards template={template} />
+                  </Grid>)
               })
             }
-            <Grid item md={3}>
+            {/* <Grid item md={3}>
               <ValueCards />
             </Grid>
             <Grid item md={3}>
@@ -122,7 +120,7 @@ function ValueCardsDashboard() {
             </Grid>
             <Grid item md={3}>
               <ValueCards />
-            </Grid>
+            </Grid> */}
           </Grid>
         </Stack>
       </Box>
