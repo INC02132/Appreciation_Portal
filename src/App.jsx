@@ -7,6 +7,7 @@ import SideNavBar from "./Components/SideNavbar/SideNavbar";
 import './App.css'
 import AppreciationSent from "./Pages/AppreciationSent";
 import AppreciationReceived from "./Pages/AppreciationReceived";
+import ValueCardsDashboard from "./Pages/ValueCardsDashboard";
 
 function App() {
   return (
@@ -20,7 +21,7 @@ function App() {
           </div>
           <div className="body-content">
             <Switch>
-              <Route exact path="/appreciate" component={AppreciatePage} />
+              <Route exact path="/appreciate" component={ValueCardsDashboard} />
               <Route exact path="/received" component={AppreciationReceived} />
               <Route exact path="/sent" component={AppreciationSent} />
               <Redirect exact from="/" to="/appreciate" />

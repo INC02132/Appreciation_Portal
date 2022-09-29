@@ -3,7 +3,9 @@ import {
   Button,
   FormControl,
   Grid,
+  MenuItem,
   Paper,
+  Select,
   Slider,
   TextField,
   Typography,
@@ -75,12 +77,18 @@ const AppreciatePage = () => {
 
   const fetchData = async () => {
     let res = await axios.get("http://localhost:8080/appreciation/getTemplate");
-    if(res.status===200) {
+    if (res.status === 200) {
 
       // console.log(res.data)
-      setCertificateData({...certificateData, image: res.data.data?.[6].templateFile})
+      setCertificateData({ ...certificateData, image: res.data.data?.[6].templateFile })
     }
   }
+
+  const [card, setCard] = React.useState("");
+
+  const handleChange = (event) => {
+    setCard(event.target.value);
+  };
 
   useEffect(() => {
     fetchData();
@@ -119,6 +127,28 @@ const AppreciatePage = () => {
           >
             <Grid container gap={1} sx={{ padding: "1em 2em" }}>
               <Grid item xs={12}>
+                <Typography sx={{ fontSize: "1rem", fontWeight: "500" }}>
+                  Value Card Category
+                </Typography>
+                <FormControl sx={{ width: "100%" }} size="small">
+                  <Select
+                    labelId="demo-select-small"
+                    id="demo-select-small"
+                    value={card}
+                    onChange={handleChange}
+                  >
+                    <MenuItem value="">
+                      <em>None</em>
+                    </MenuItem>
+                    <MenuItem value={10}>Customer Centricity</MenuItem>
+                    <MenuItem value={20}>Excellence</MenuItem>
+                    <MenuItem value={30}>Integrity</MenuItem>
+                    <MenuItem value={40}>Joy</MenuItem>
+                    <MenuItem value={50}>Ownership</MenuItem>
+                    <MenuItem value={60}>Partnership</MenuItem>
+                    <MenuItem value={70}>People First</MenuItem>
+                  </Select>
+                </FormControl>
                 <Typography sx={{ fontSize: "24px" }}>Add Details</Typography>
                 <FormControl sx={{ width: "100%" }}>
                   <Typography style={{ fontSize: "18px" }}>Name</Typography>
