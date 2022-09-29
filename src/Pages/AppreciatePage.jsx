@@ -13,6 +13,8 @@ import React, { createRef, useCallback, useState } from "react";
 import "./AppreciatePage.css";
 import data from "../certificateData";
 import { toPng } from "html-to-image";
+import { useEffect } from "react";
+import axios from "axios";
 
 const StyledCertificate = styled(Paper)(({ theme }) => ({
   boxShadow: "0 0 5px #000",
@@ -70,6 +72,19 @@ const AppreciatePage = () => {
     data[0].messageTopPostion
   );
   const [messageFont, setMessageFont] = useState(data[0].messageFontSize);
+
+  const fetchData = async () => {
+    let res = await axios.get("http://localhost:8080/appreciation/getTemplate");
+    if(res.status===200) {
+
+      // console.log(res.data)
+      setCertificateData({...certificateData, image: res.data.data?.[6].templateFile})
+    }
+  }
+
+  useEffect(() => {
+    fetchData();
+  }, [])
 
   return (
     <Box sx={{ height: "calc(100vh - 52px)" }}>
@@ -236,7 +251,7 @@ const AppreciatePage = () => {
             </PositionedName>
             <img
               height={"500px"}
-              src={certificateData?.image}
+              src={`data:image/png;base64,${certificateData?.image}`}
               alt="Certificate"
             />
           </StyledCertificate>
