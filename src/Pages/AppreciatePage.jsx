@@ -31,7 +31,7 @@ const PositionedName = styled(Typography)(({ theme }) => ({
   position: "absolute",
 }));
 
-const AppreciatePage = () => {
+const AppreciatePage = ({selecteCategory, selectedTemplate, data}) => {
   const ref = createRef();
 
   const onButtonClick = useCallback(() => {

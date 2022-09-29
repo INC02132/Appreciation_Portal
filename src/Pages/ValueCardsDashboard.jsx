@@ -56,6 +56,9 @@ function ValueCards() {
 }
 
 function ValueCardsDashboard() {
+
+  const [templateData, setTemplateData] = useState([]);
+
   return (
     <div>
       <Box sx={{ height: "calc(100vh - 52px)" }}>
@@ -91,6 +94,14 @@ function ValueCardsDashboard() {
             </Typography>
           </Grid>
           <Grid container spacing={2} sx={{ width: "97.5%" }}>
+            {
+              templateData.map((template) => {
+                return 
+            <Grid item md={3}>
+              <ValueCards />
+            </Grid>
+              })
+            }
             <Grid item md={3}>
               <ValueCards />
             </Grid>
