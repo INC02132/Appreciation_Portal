@@ -3,13 +3,10 @@ import {
   Typography,
   Box,
   Grid,
-  Paper,
   Card,
   CardContent,
-  CardMedia,
 } from "@mui/material";
-import axios from "axios";
-import React, { useEffect, useState } from "react";
+import React from "react";
 
 function ValueCards({ template }) {
   return (

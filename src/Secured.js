@@ -9,7 +9,6 @@ function Secured() {
   const isAuthenticated = useIsAuthenticated();
 
 
-  const { accounts } = useMsal();
 
 
   return (

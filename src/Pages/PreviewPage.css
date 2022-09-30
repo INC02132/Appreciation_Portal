@@ -1,0 +1,7 @@
+.draggable {
+    width: 60%;
+    /* border: dashed 2px #ddd; */
+    border-radius: 5px;
+    box-sizing: border-box;
+    padding: "5px"
+}

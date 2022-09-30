@@ -5,23 +5,24 @@ import ValueCardsDashboard from "./ValueCardsDashboard";
 
 const AppreciatePage = () => {
   const [showPreviewPage, setShowPreviewPage] = useState(false);
-  const [selectedCategory, setSelectedCategory] = useState(null);
-  const [selectedTemplateImage, setSelecteImage] = useState(null);
+  const [selectedTemplate, setSelectedTemplate] = useState(null);
 
   const [templateData, setTemplateData] = useState([]);
 
   const fetchData = async () => {
-    let res = await axios.get("http://localhost:8080/appreciation/getTemplate");
-    if (res.status === 200) {
-
-      // console.log(res.data)
-      setTemplateData(res.data.data)
+    try{
+      let res = await axios.get("http://localhost:8080/appreciation/getTemplate");
+      if (res.status === 200) {
+        // console.log(res.data)
+        setTemplateData(res.data.data)
+      }
+    } catch(error) {
+      console.error(error)
     }
   }
 
-  const setSelectedTemplate = (template) => {
-    setSelectedCategory(template.category);
-    setSelecteImage(template.templateFile);
+  const handleSelectTemplate = (template) => {
+    setSelectedTemplate(template);
     setShowPreviewPage(true);
   }
 
@@ -30,7 +31,7 @@ const AppreciatePage = () => {
   }, [])
 
   return (
-    showPreviewPage ? <PreviewPage selectedCategory={selectedCategory} selectedTemplateImage={selectedTemplateImage} templateData={templateData} /> : <ValueCardsDashboard templateData={templateData} setSelectedTemplate={setSelectedTemplate} />
+    showPreviewPage ? <PreviewPage selectedTemplate={selectedTemplate} templateData={templateData} /> : <ValueCardsDashboard templateData={templateData} setSelectedTemplate={handleSelectTemplate} />
   );
 };
 
