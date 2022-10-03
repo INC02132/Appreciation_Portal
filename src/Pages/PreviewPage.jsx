@@ -186,9 +186,9 @@ const PreviewPage = ({ selectedTemplate, templateData = [] }) => {
               overflow: "auto",
             }}
           >
-            <Grid container gap={1} sx={{ padding: "1em 2em" }}>
+            <Grid container gap={1} sx={{ padding: "2em 2em" }}>
               <Grid item xs={12}>
-                <Typography sx={{ fontSize: "1rem", fontWeight: "500" }}>
+                <Typography sx={{ fontSize: "1rem", fontWeight: "500", margin: "0.5em 0" }}>
                   Value Card Category
                 </Typography>
                 <FormControl sx={{ width: "100%" }} size="small">
@@ -208,9 +208,12 @@ const PreviewPage = ({ selectedTemplate, templateData = [] }) => {
                     ))}
                   </Select>
                 </FormControl>
-                <Typography sx={{ fontSize: "24px" }}>Add Details</Typography>
+                </Grid>
+                <Grid item xs={12} sx={{marginTop: "1em"}}>
+                <Typography sx={{ fontSize: "1rem", fontWeight: "500", margin: "0.5em 0" }}>Add Details</Typography>
+                
                 <FormControl sx={{ width: "100%" }}>
-                  <Typography style={{ fontSize: "18px" }}>Name</Typography>
+                  <Typography style={{ fontSize: "1rem" }}>Name</Typography>
                   <TextField
                     variant="outlined"
                     sx={{ marginBottom: "0.4em" }}
@@ -254,7 +257,7 @@ const PreviewPage = ({ selectedTemplate, templateData = [] }) => {
               </Grid>
               <Grid item xs={12}>
                 <FormControl sx={{ width: "100%" }}>
-                  <Typography style={{ fontSize: "18px" }}>Message</Typography>
+                  <Typography style={{ fontSize: "1rem" }}>Message</Typography>
                   <TextField
                     multiline
                     rows={3}
@@ -301,7 +304,7 @@ const PreviewPage = ({ selectedTemplate, templateData = [] }) => {
               </Grid>
               <Grid item xs={12}>
                 <FormControl sx={{ width: "100%" }}>
-                  <Typography style={{ fontSize: "18px" }}>Regards</Typography>
+                  <Typography style={{ fontSize: "1rem" }}>Regards</Typography>
                   <TextField
                     variant="outlined"
                     disabled
@@ -312,7 +315,7 @@ const PreviewPage = ({ selectedTemplate, templateData = [] }) => {
                   />
                 </FormControl>
               </Grid>
-              <Grid item xs={12}>
+              <Grid item xs={12} sx={{marginTop: "1em"}}>
                 <ButtonGroup>
                   {/* <Button
                                         variant="contained"
