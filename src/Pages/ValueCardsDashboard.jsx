@@ -22,16 +22,16 @@ function ValueCards({ template }) {
         >
           {template.category}
         </Typography>
-        <Grid container sx={{ display: "flex" }}>
+        <Grid container sx={{ display: "flex", paddingTop: "0" }}>
           <Grid item md={7}>
-            <CardContent sx={{ flex: "1 0 auto" }}>
+            <CardContent sx={{ flex: "1 0 auto", paddingTop: "0",
+                  textAlign: "justify",
+                  textJustify: "inter-word", }} >
               <Typography
                 variant="subtitle"
                 sx={{
                   fontSize: "0.8rem",
                   color: "#263238",
-                  textAlign: "justify",
-                  textJustify: "inter-word",
                 }}
               >
                 {template.description}
@@ -56,7 +56,7 @@ function ValueCardsDashboard({ templateData = [], setSelectedTemplate }) {
 
   return (
     <div>
-      <Box sx={{ height: "calc(100vh - 52px)" }}>
+      <Box className="wbScroll" sx={{ height: "calc(100vh - 52px)" }}>
         <Stack spacing={3} sx={{ margin: "1rem 0 0 1rem" }}>
           <Grid container gap={2}>
             <Typography
