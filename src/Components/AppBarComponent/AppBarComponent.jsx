@@ -60,7 +60,7 @@ const AppBarComponent = () => {
       >
         <Toolbar style={toolbarStyle}>
           <div className="logo">
-            <Typography sx={{color: "#00518D"}}>Incture Appriciation Portal</Typography>
+            <Typography sx={{color: "#00518D"}}>Incture Appreciation Portal</Typography>
           </div>
 
           <Box sx={{ flexGrow: 1 }} />
