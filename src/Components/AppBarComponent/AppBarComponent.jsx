@@ -108,7 +108,7 @@ const AppBarComponent = () => {
             >
               {/* <AccountCircle /> */}
               <Avatar sx={{height: '28px', width: '28px', fontSize: '14px', padding: '0'}}>
-                {"NI"}
+                {userDetails.initials}
               </Avatar>
             </IconButton>
             <div>{isMenuOpen ? <div>{renderMenu}</div> : null}</div>

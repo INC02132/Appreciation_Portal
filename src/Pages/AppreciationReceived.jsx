@@ -14,6 +14,7 @@ import { createRef, useCallback, useState } from "react";
 import axios from "axios";
 import { useParams } from "react-router";
 import { useMsal } from "@azure/msal-react";
+import { TimeStampToDateString } from "../Utils/TimeStampToString";
 
 const handleCilck = () => {
   <img height={"500px"} src="../Assests/Slide1.jpg" alt="Certificate" />;
@@ -142,7 +143,7 @@ function AppreciationCard({cardData}) {
             fontSize: "0.8rem",
           }}
         >
-          {cardData?.date}
+          {TimeStampToDateString(cardData?.date)}
         </p>
 
         <div style={{ marginTop: "1.1rem" }}>
