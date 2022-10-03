@@ -26,7 +26,7 @@ export default function AppreciationReceived() {
     const fetchData = async () => {
       try{
         let res = await axios.get(
-          `http://localhost:8080/appreciation/getAppreciationReceivedById?receiverId=${accounts[0]?.name??""}`
+          `http://localhost:8080/appreciation/getAppreciationReceivedById?receiverId=${accounts[0]?.username??""}`
         );
         if(res.status===200) {
           setReceivedCard(res.data.data)
