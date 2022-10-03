@@ -11,7 +11,7 @@ import React from "react";
 function ValueCards({ template }) {
   return (
     <div>
-      <Card>
+      <Card sx={{height: "10rem"}}>
         <Typography
           variant="h5"
           sx={{
@@ -38,9 +38,9 @@ function ValueCards({ template }) {
               </Typography>
             </CardContent>
           </Grid>
-          <Grid item md={5} sx={{ margin: "auto" }}>
+          <Grid item md={5} sx={{ margin: "auto", paddingRight: "0.5rem" }}>
             <img
-              width="95%"
+              width="100%"
               src={`data:image/png;base64,${template?.logo}`}
               alt={template?.category ?? "Category"}
               loading="lazy"

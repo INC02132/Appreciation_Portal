@@ -91,6 +91,7 @@ const PreviewPage = ({ selectedTemplate, templateData = [] }) => {
 
     //Name field states
     const [name, setName] = useState("");
+    const [receiverEmail, setReceiverEmail] = useState("");
     const [nameLeftPostion, setNameLeftPostion] = useState(
         data[0].nameLeftPostion
     );
@@ -113,8 +114,8 @@ const PreviewPage = ({ selectedTemplate, templateData = [] }) => {
 
         const valueCard = {
             updatedMessage: message,
-            senderEmail: "prajojita28@gmail.com",
-            receiverEmail: "prajojita28@gmail.com",
+            senderEmail: accounts[0].username,
+            receiverEmail: receiverEmail,
             templateId: selectedTemplate.templateId,
         };
 
@@ -254,6 +255,7 @@ const PreviewPage = ({ selectedTemplate, templateData = [] }) => {
                                     <AutoCompleteSearch
                                         autoCompleteonChange={(val) => {
                                             setName(`${val["firstName"]} ${val["lastName"]}`)
+                                            setReceiverEmail(val.emailId)
                                         }}
                                         textOnChange={(val) => optimizedFn(val)}
                                         options={userSearchData}
@@ -306,7 +308,7 @@ const PreviewPage = ({ selectedTemplate, templateData = [] }) => {
                                         type={"text"}
                                         sx={{ marginBottom: "0.4em" }}
                                         variant="outlined"
-                                        InputProps={{ style: { height: "12vh" } }}
+                                        InputProps={{ style: { height: "auto" } }}
                                         value={message}
                                         onChange={(e) => setMessage(e.target.value)}
                                     />

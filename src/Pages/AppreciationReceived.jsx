@@ -12,18 +12,21 @@ import SearchIcon from "@mui/icons-material/Search";
 import IconButton from "@mui/material/IconButton";
 import { createRef, useCallback, useState } from "react";
 import axios from "axios";
+import { useParams } from "react-router";
+import { useMsal } from "@azure/msal-react";
 
 const handleCilck = () => {
   <img height={"500px"} src="../Assests/Slide1.jpg" alt="Certificate" />;
 };
 
 export default function AppreciationReceived() {
+  const { accounts } = useMsal();  
   const [receivedCard, setReceivedCard] = useState(null);
 
     const fetchData = async () => {
       try{
         let res = await axios.get(
-          "http://localhost:8080/appreciation/getAllAppreciation/10/1"
+          `http://localhost:8080/appreciation/getAppreciationReceivedById?receiverId=${accounts[0]?.name??""}`
         );
         if(res.status===200) {
           setReceivedCard(res.data.data)
