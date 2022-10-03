@@ -1,5 +1,15 @@
+import { useMsal } from '@azure/msal-react';
 import { AppBar, Avatar, Box, Button, Card, CardContent, IconButton, Toolbar, Typography } from '@mui/material'
 import React, { useState } from 'react'
+import { useEffect } from 'react';
+
+
+function handleLogout(instance) {
+  instance.logoutRedirect().catch(e => {
+      console.error(e);
+  });
+}
+
 
 const AppBarComponent = () => {
 
@@ -10,6 +20,25 @@ const AppBarComponent = () => {
 
 
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+  const {accounts, instance} = useMsal();
+
+  const [userDetails, setUserDetails] = useState({
+    name: "", 
+    initials: "",
+    email: ""
+  });
+
+  useEffect(() => {
+    let splittedName = accounts[0]?.name?.split(" ");
+    let firstName = splittedName[0];
+    let lastName = splittedName[1];
+    setUserDetails({
+      name: `${accounts[0]?.name}`,
+      initials: `${firstName?.[0]??""}${lastName?.[0]??""}`,
+      email: accounts?.[0]?.username??""
+    })
+  }, [accounts])
 
 
   const renderMenu = (
@@ -27,19 +56,20 @@ const AppBarComponent = () => {
 		>
 			<Card variant='outlined'>
 				<CardContent sx={{display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center'}}>
-					<Avatar sx={{height: '23px', width: '23px', fontSize: '14px' }}>NI</Avatar>
+					<Avatar sx={{height: '23px', width: '23px', fontSize: '14px' }}>{userDetails.initials}</Avatar>
 					<Typography
 						sx={{ fontSize: "16px" }}						
 					>
-						{"Naiyar Imam"}
+						{userDetails?.name}
 					</Typography>
 					<Typography
 						sx={{ fontSize: "14px" }}
 					>
-						{"naiyar.imam@incture.com"}
+						{userDetails?.email}
 					</Typography>
 					<Button
 						size='small'
+            onClick={() => handleLogout(instance)}
 					>
 						Sign out
 					</Button>
