@@ -31,9 +31,9 @@ const AutoCompleteSearch = ({autoCompleteonChange, textOnChange, options, getOpt
                       type: "search",
                       style: {
                         padding: "0px 4px",
-                        width: "100%",
+                        width: "93%",
                       },
-                      endAdornment: <SearchOutlined color="disabled" />,
+                      endAdornment: <SearchOutlined color="disabled"/>,
                     }}
                     onChange={(e) => textOnChange(e.target.value)}
                   />
