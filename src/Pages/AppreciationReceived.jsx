@@ -16,12 +16,11 @@ import { useParams } from "react-router";
 import { useMsal } from "@azure/msal-react";
 import { TimeStampToDateString } from "../Utils/TimeStampToString";
 
-const handleCilck = () => {
-  <img height={"500px"} src="../Assests/Slide1.jpg" alt="Certificate" />;
-};
+
 
 export default function AppreciationReceived() {
   const { accounts } = useMsal();
+ 
   const [receivedCard, setReceivedCard] = useState(null);
 
   const fetchData = async () => {
@@ -36,8 +35,15 @@ export default function AppreciationReceived() {
       }
     } catch (error) {}
   };
+
+  const [selectedCard, setSelectedCard] = useState(null);
+ 
+
+ 
+ 
   React.useEffect(() => {
     fetchData();
+    ;
   }, []);
 
   return (
@@ -88,25 +94,27 @@ export default function AppreciationReceived() {
           </Box>
 
           {receivedCard?.map((item) => {
-            return <AppreciationCard cardData={item} />;
+            return <AppreciationCard cardData={item} setSelectedCard={setSelectedCard} />;
           })}
         </Card>
       </Grid>
       <Grid item md={7} style={{ padding: "16px" }}>
-        <img
-          height={"500px"}
-          src="https://images.unsplash.com/photo-1589330694653-ded6df03f754?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=916&q=80"
-          alt="Certificate"
-        />
+        
+          <img src={`data:image/png;base64,${selectedCard?.template?.templateFile}`}
+          />
       </Grid>
     </Grid>
   );
-}
+        };
 
-function AppreciationCard({ cardData }) {
+function AppreciationCard({ cardData, setSelectedCard }) {
+  const handleClick=()=>{
+    setSelectedCard(cardData)
+  }
+ 
   return (
     <Card
-      onClick={handleCilck}
+      onClick={() => handleClick()}
       elevation={8}
       sx={{
         width: "300px",
