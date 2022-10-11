@@ -43,12 +43,12 @@ export default function AppreciationReceived() {
  
   React.useEffect(() => {
     fetchData();
-    ;
+    
   }, []);
 
   return (
     <Grid container>
-      <Grid item md={5} style={{ padding: "16px" }}>
+      <Grid item md={4} style={{ padding: "16px" }}>
         <Card
           sx={{
             width: "350px",
@@ -98,9 +98,10 @@ export default function AppreciationReceived() {
           })}
         </Card>
       </Grid>
-      <Grid item md={7} style={{ padding: "16px" }}>
+      <Grid item md={8} style={{ padding: "16px", display: "flex", alignItems: "center" }}>
         
-          <img src={`data:image/png;base64,${selectedCard?.template?.templateFile}`}
+          <img src={`data:image/png;base64,${selectedCard?.template?.templateFile}`} 
+          height={"500px"}
           />
       </Grid>
     </Grid>

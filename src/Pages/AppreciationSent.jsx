@@ -22,7 +22,7 @@ const handleCilck = () => {
 
 export default function AppreciationSent() {
   const { accounts } = useMsal();  
-  const [receivedCard, setReceivedCard] = useState(null);
+  const [sentCard, setSentCard] = useState(null);
 
     const fetchData = async () => {
       try{
@@ -30,12 +30,13 @@ export default function AppreciationSent() {
           `http://localhost:8080/appreciation/getAppreciationBySenderId?senderId=${accounts[0]?.username??""}`
         );
         if(res.status===200) {
-          setReceivedCard(res.data.data)
+          setSentCard(res.data.data)
         }
       } catch(error) {
 
       }
     }
+    const [selectedCard, setSelectedCard] = useState(null);
     React.useEffect(() => {
       fetchData();
     }, [])
@@ -88,8 +89,8 @@ export default function AppreciationSent() {
           </Box>
 
           {
-            receivedCard?.map((item) => {
-              return <AppreciationCard cardData={item} />
+            sentCard?.map((item) => {
+              return <AppreciationCard cardData={item} setSelectedCard={setSelectedCard}  />
             })
           }
 
@@ -97,21 +98,23 @@ export default function AppreciationSent() {
           
         </Card>
       </Grid>
-      <Grid item md={7} style={{ padding: "16px" }}>
-        <img
+      <Grid item md={8} style={{ padding: "16px", display: "flex", alignItems: "center" }}>
+        
+          <img src={`data:image/png;base64,${selectedCard?.template?.templateFile}`} 
           height={"500px"}
-          src="https://images.unsplash.com/photo-1589330694653-ded6df03f754?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=916&q=80"
-          alt="Certificate"
-        />
+          />
       </Grid>
     </Grid>
   );
 }
 
-function AppreciationCard({cardData}) {
+function AppreciationCard({cardData, setSelectedCard}) {
+  const handleClick=()=>{
+    setSelectedCard(cardData)
+  }
   return (
     <Card
-      onClick={handleCilck}
+    onClick={() => handleClick()}
       elevation={8}
       sx={{
         width: "300px",
