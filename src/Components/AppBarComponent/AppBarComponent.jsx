@@ -56,19 +56,20 @@ const AppBarComponent = () => {
 		>
 			<Card variant='outlined'>
 				<CardContent sx={{display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center'}}>
-					<Avatar sx={{height: '23px', width: '23px', fontSize: '14px' }}>{userDetails.initials}</Avatar>
+					<Avatar sx={{height: '23px', width: '23px', fontSize: '14px', marginBottom: "1rem" }}>{userDetails.initials}</Avatar>
 					<Typography
 						sx={{ fontSize: "16px" }}						
 					>
 						{userDetails?.name}
 					</Typography>
 					<Typography
-						sx={{ fontSize: "14px" }}
+						sx={{ fontSize: "14px", marginBottom: "1rem" }}
 					>
 						{userDetails?.email}
 					</Typography>
 					<Button
 						size='small'
+            variant="contained"
             onClick={() => handleLogout(instance)}
 					>
 						Sign out
@@ -90,7 +91,8 @@ const AppBarComponent = () => {
       >
         <Toolbar style={toolbarStyle}>
           <div className="logo">
-            <Typography sx={{color: "#00518D"}}>Incture Appreciation Portal</Typography>
+            <img src="./logo.png" alt=" " height="42rem"/>
+            {/* <Typography sx={{color: "#00518D"}}>Incture Appreciation Portal</Typography> */}
           </div>
 
           <Box sx={{ flexGrow: 1 }} />

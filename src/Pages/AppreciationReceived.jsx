@@ -21,24 +21,24 @@ const handleCilck = () => {
 };
 
 export default function AppreciationReceived() {
-  const { accounts } = useMsal();  
+  const { accounts } = useMsal();
   const [receivedCard, setReceivedCard] = useState(null);
 
-    const fetchData = async () => {
-      try{
-        let res = await axios.get(
-          `http://localhost:8080/appreciation/getAppreciationReceivedById?receiverId=${accounts[0]?.username??""}`
-        );
-        if(res.status===200) {
-          setReceivedCard(res.data.data)
-        }
-      } catch(error) {
-
+  const fetchData = async () => {
+    try {
+      let res = await axios.get(
+        `http://localhost:8080/appreciation/getAppreciationReceivedById?receiverId=${
+          accounts[0]?.username ?? ""
+        }`
+      );
+      if (res.status === 200) {
+        setReceivedCard(res.data.data);
       }
-    }
-    React.useEffect(() => {
-      fetchData();
-    }, [])
+    } catch (error) {}
+  };
+  React.useEffect(() => {
+    fetchData();
+  }, []);
 
   return (
     <Grid container>
@@ -87,14 +87,9 @@ export default function AppreciationReceived() {
             </IconButton>
           </Box>
 
-          {
-            receivedCard?.map((item) => {
-              return <AppreciationCard cardData={item} />
-            })
-          }
-
-          
-          
+          {receivedCard?.map((item) => {
+            return <AppreciationCard cardData={item} />;
+          })}
         </Card>
       </Grid>
       <Grid item md={7} style={{ padding: "16px" }}>
@@ -108,7 +103,7 @@ export default function AppreciationReceived() {
   );
 }
 
-function AppreciationCard({cardData}) {
+function AppreciationCard({ cardData }) {
   return (
     <Card
       onClick={handleCilck}
@@ -170,4 +165,3 @@ function AppreciationCard({cardData}) {
     </Card>
   );
 }
-  

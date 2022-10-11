@@ -78,9 +78,9 @@ const SelectedListItem = () => {
         "& .MuiListItemButton-root:hover": {},
       }}
     >
-      <NavItem icon={<CardGiftcardOutlined/>}  route="appreciate" label="Appreciate" index={0} />
-      <NavItem icon={<Stars />} route="received" label="Appreciations Received" index={1} />
-      <NavItem icon={<BarChart />} route="sent" label="Appreciations Sent" index={2} />
+      <NavItem icon={<CardGiftcardOutlined sx={{color: "#fff"}}/>}  route="appreciate" label="Appreciate" index={0} />
+      <NavItem icon={<Stars sx={{color: "#fff"}}/>} route="received" label="Appreciations Received" index={1} />
+      <NavItem icon={<BarChart sx={{color: "#fff"}}/>} route="sent" label="Appreciations Sent" index={2} />
     </List>
   );
 
