@@ -49,6 +49,7 @@ export default function AppreciationReceived() {
             height: "600px",
             borderRadius: "10px",
             padding: "1em 0.2em",
+            cursor: "pointer"
           }}
         >
           <Typography

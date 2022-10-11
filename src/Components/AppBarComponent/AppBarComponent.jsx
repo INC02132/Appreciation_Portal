@@ -71,6 +71,10 @@ const AppBarComponent = () => {
 						size='small'
             variant="contained"
             onClick={() => handleLogout(instance)}
+            sx={{backgroundColor: "#002947",
+            '&:hover': {
+              backgroundColor: "#011828",
+            }}}
 					>
 						Sign out
 					</Button>

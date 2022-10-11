@@ -129,6 +129,7 @@ function AppreciationCard({cardData}) {
           backgroundColor: "#002947",
           color: "white",
         },
+        cursor: "pointer"
       }}
     >
       <div
