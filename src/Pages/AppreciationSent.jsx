@@ -23,6 +23,7 @@ const handleCilck = () => {
 export default function AppreciationSent() {
   const { accounts } = useMsal();  
   const [receivedCard, setReceivedCard] = useState(null);
+  const [filteredData, setFilteredData] = useState([]);
 
     const fetchData = async () => {
       try{
@@ -36,6 +37,14 @@ export default function AppreciationSent() {
 
       }
     }
+
+    const filterResult = (searchText) => {
+      let temp = receivedCard?.filter((card) => {
+        card?.template?.category?.toLowerCase().includes(searchText?.toLowerCase())
+      })
+      setFilteredData(temp);
+    }
+
     React.useEffect(() => {
       fetchData();
     }, [])
@@ -78,6 +87,7 @@ export default function AppreciationSent() {
               id="input-with-sx"
               variant="standard"
               placeholder="Search"
+              onChange={(e) => filterResult(e.target.value)}
               fullWidth
               focused={false}
               InputProps={{ disableUnderline: true }}
@@ -88,7 +98,10 @@ export default function AppreciationSent() {
           </Box>
 
           {
-            receivedCard?.map((item) => {
+            filteredData?.length>0?
+            filteredData?.map((item) => {
+              return <AppreciationCard cardData={item} />
+            }): receivedCard?.map((item) => {
               return <AppreciationCard cardData={item} />
             })
           }
