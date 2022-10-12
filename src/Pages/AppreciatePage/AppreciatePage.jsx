@@ -26,12 +26,16 @@ const AppreciatePage = () => {
     setShowPreviewPage(true);
   }
 
+  const showDashBoard = () => {
+    setShowPreviewPage(false);
+  }
+
   useEffect(() => {
     fetchData();
   }, [])
 
   return (
-    showPreviewPage ? <PreviewPage selectedTemplate={selectedTemplate} templateData={templateData} /> : <ValueCardsDashboard templateData={templateData} setSelectedTemplate={handleSelectTemplate} />
+    showPreviewPage ? <PreviewPage showDashBoard={showDashBoard} selectedTemplate={selectedTemplate} templateData={templateData} /> : <ValueCardsDashboard templateData={templateData} setSelectedTemplate={handleSelectTemplate} />
   );
 };
 
