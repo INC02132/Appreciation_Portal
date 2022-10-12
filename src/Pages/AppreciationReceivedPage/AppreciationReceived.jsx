@@ -14,6 +14,8 @@ import { styled } from "@mui/system";
 import { useMsal } from "@azure/msal-react";
 import { toPng } from "html-to-image";
 import { TimeStampToDateString } from "../../Utils/TimeStampToString";
+import { useDispatch } from "react-redux";
+import { setSelectedNavIndex } from "../../redux/reducers/appReducer";
 
 const StyledCertificate = styled(Paper)(({ theme }) => ({
   boxShadow: "0 0 5px #000",
@@ -31,6 +33,11 @@ export default function AppreciationReceived() {
   const [receivedCard, setReceivedCard] = useState(null);
   const [searchText, setSearchText] = useState("");
   const [toastMessage, setToastMessage] = useState(false);
+
+  const dispatch = useDispatch();
+
+  dispatch(setSelectedNavIndex(1));
+
   const handleCloseToastMessage = (event, reason) => {
     if (reason === "clickaway") {
       return;

@@ -1,11 +1,17 @@
 import axios from "axios";
-import React, { createRef, useCallback, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
+import { setSelectedNavIndex } from "../../redux/reducers/appReducer";
 import PreviewPage from "../PreviewPage/PreviewPage"
 import ValueCardsDashboard from "../ValueCardDashboardPage/ValueCardsDashboard";
 
 const AppreciatePage = () => {
   const [showPreviewPage, setShowPreviewPage] = useState(false);
   const [selectedTemplate, setSelectedTemplate] = useState(null);
+  const dispatch = useDispatch();
+
+  dispatch(setSelectedNavIndex(0));
+
 
   const [templateData, setTemplateData] = useState([]);
 

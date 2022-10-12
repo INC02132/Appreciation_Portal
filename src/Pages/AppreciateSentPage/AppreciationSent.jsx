@@ -14,6 +14,8 @@ import axios from "axios";
 import { styled } from "@mui/system";
 import { useMsal } from "@azure/msal-react";
 import { TimeStampToDateString } from "../../Utils/TimeStampToString";
+import { setSelectedNavIndex } from "../../redux/reducers/appReducer";
+import { useDispatch } from "react-redux";
 
 const StyledCertificate = styled(Paper)(({ theme }) => ({
   boxShadow: "0 0 5px #000",
@@ -31,6 +33,11 @@ export default function AppreciationSent() {
   const [sentCard, setSentCard] = useState(null);
   const [toastMessage, setToastMessage] = useState(false);
   const [searchText, setSearchText] = useState("");
+
+  const dispatch = useDispatch();
+
+  dispatch(setSelectedNavIndex(2));
+
   const handleCloseToastMessage = (event, reason) => {
     if (reason === "clickaway") {
       return;
