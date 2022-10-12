@@ -123,7 +123,7 @@ export default function AppreciationReceived() {
                   <SearchIcon />
                 </IconButton>
               </Box>
-              <Box className= "wbScroll" sx={{height: "26rem",
+              <Box className= "wbScroll" sx={{height: "23rem",
             overflowY: "scroll", padding: "1rem"}}>
               {receivedCard?.map((item) => {
                 // return (
@@ -143,7 +143,8 @@ export default function AppreciationReceived() {
                   <AppreciationCard
                       cardData={item}
                       setSelectedCard={setSelectedCard}
-                    />
+                    >
+                  </AppreciationCard>
                 );
               })}
               </Box>
@@ -158,8 +159,9 @@ export default function AppreciationReceived() {
             flexDirection: "column",
             justifyContent: "center",
             alignItems: "center",
-          }}
+          }} 
         >
+          {selectedCard === null?<Box> Select a Card</Box>:<>
           <StyledCertificate>
             <Box
               style={{
@@ -196,6 +198,7 @@ export default function AppreciationReceived() {
           <Button variant="contained" sx={{ marginTop: "1rem", textTransform: "none", fontWeight: "400" }}>
             Download
           </Button>
+          </>}
         </Grid>
 
         <Snackbar
