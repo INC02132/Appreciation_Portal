@@ -5,7 +5,7 @@ import React from 'react'
 const AutoCompleteSearch = ({autoCompleteonChange, textOnChange, options, getOptionLabel="", firstNameOption="", lastNameOption="", primaryTextOption="", secondaryTextOption, placeholder="", width="17em" }) => {
   return (
     <Autocomplete
-    sx={{width: width}}
+    sx={{width: width, marginBottom: "0.4em"}}
               onChange={(event, value) => {
                 autoCompleteonChange(value)
               }}

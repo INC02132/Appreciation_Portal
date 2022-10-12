@@ -1,13 +1,12 @@
-import AppreciatePage from "./Pages/AppreciatePage";
 import { BrowserRouter as Router, Switch, Route, Redirect } from "react-router-dom";
 import { ThemeProvider } from "@emotion/react";
 import CustomTheme from "./Theme/CustomTheme";
 import AppBarComponent from "./Components/AppBarComponent/AppBarComponent";
 import SideNavBar from "./Components/SideNavbar/SideNavbar";
+import AppreciatePage from "./Pages/AppreciatePage/AppreciatePage";
+import AppreciationSent from "./Pages/AppreciateSentPage/AppreciationSent";
+import AppreciationReceived from "./Pages/AppreciationReceivedPage/AppreciationReceived";
 import './App.css'
-import AppreciationSent from "./Pages/AppreciationSent";
-import AppreciationReceived from "./Pages/AppreciationReceived";
-import ValueCardsDashboard from "./Pages/ValueCardsDashboard";
 
 function App() {
   return (

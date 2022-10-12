@@ -1,8 +1,7 @@
 import * as React from 'react'
-import { useMsal } from "@azure/msal-react";
 import { useIsAuthenticated } from '@azure/msal-react';
 import App from './App';
-import Login from './Pages/Login';
+import LoginPage from './Pages/LoginPage/LoginPage';
 
 
 function Secured() {
@@ -14,7 +13,7 @@ function Secured() {
   return (
     <>
       {
-        isAuthenticated ? <App /> : <Login />
+        isAuthenticated ? <App /> : <LoginPage />
       }
     </>
   );

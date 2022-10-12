@@ -8,7 +8,6 @@ import {
   MenuItem,
   Paper,
   Select,
-  Slider,
   Snackbar,
   TextField,
   Typography,
@@ -17,17 +16,14 @@ import { styled } from "@mui/system";
 import React, {
   createRef,
   useCallback,
-  useEffect,
   useRef,
   useState,
 } from "react";
-import "./AppreciatePage.css";
-import data from "../certificateData";
-import { toPng } from "html-to-image";
+// import { toPng } from "html-to-image";
 import { motion } from "framer-motion";
 import "./PreviewPage.css";
 import { useMsal } from "@azure/msal-react";
-import AutoCompleteSearch from "../Components/SearchComponent/AutoCompleteSearch";
+import AutoCompleteSearch from "../../Components/SearchComponent/AutoCompleteSearch";
 import axios from "axios";
 
 const StyledCertificate = styled(Paper)(({ theme }) => ({
@@ -41,38 +37,29 @@ const StyledCertificate = styled(Paper)(({ theme }) => ({
   alignItems: "center",
 }));
 
-const PositionedName = styled(Typography)(({ theme }) => ({
-  fontFamily: "Staatliches",
-  margin: "0",
-  position: "absolute",
-}));
-const PositionedItem = styled(Box)(({ theme }) => ({
-  margin: "0",
-  position: "absolute",
-}));
 const PreviewPage = ({ selectedTemplate, templateData = [] }) => {
   const ref = createRef();
 
-  const onButtonClick = useCallback(() => {
-    if (ref.current === null) {
-      return;
-    }
+  // const onButtonClick = useCallback(() => {
+  //   if (ref.current === null) {
+  //     return;
+  //   }
 
-    if (name === "" || message === "") {
-      return;
-    }
+  //   if (name === "" || message === "") {
+  //     return;
+  //   }
 
-    toPng(ref.current, { cacheBust: true })
-      .then((dataUrl) => {
-        const link = document.createElement("a");
-        link.download = "certificate.png";
-        link.href = dataUrl;
-        link.click();
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }, [ref]);
+  //   toPng(ref.current, { cacheBust: true })
+  //     .then((dataUrl) => {
+  //       const link = document.createElement("a");
+  //       link.download = "certificate.png";
+  //       link.href = dataUrl;
+  //       link.click();
+  //     })
+  //     .catch((err) => {
+  //       console.log(err);
+  //     });
+  // }, [ref]);
 
   const [certificateData, setCertificateData] = useState({
     type: selectedTemplate.category,
@@ -94,21 +81,9 @@ const PreviewPage = ({ selectedTemplate, templateData = [] }) => {
   //Name field states
   const [name, setName] = useState("");
   const [receiverEmail, setReceiverEmail] = useState("");
-  const [nameLeftPostion, setNameLeftPostion] = useState(
-    data[0].nameLeftPostion
-  );
-  const [nameTopPostion, setNameTopPostion] = useState(data[0].nameTopPostion);
-  const [nameFont, setNameFont] = useState(data[0].nameFontSize);
 
   //Message field states
   const [message, setMessage] = useState("");
-  const [messageLeftPostion, setMessageLeftPostion] = useState(
-    data[0].messageLeftPostion
-  );
-  const [messageTopPostion, setMessageTopPostion] = useState(
-    data[0].messageTopPostion
-  );
-  const [messageFont, setMessageFont] = useState(data[0].messageFontSize);
   const [toastMessage, setToastMessage] = useState(false);
 
   const { accounts } = useMsal();
@@ -270,13 +245,6 @@ const PreviewPage = ({ selectedTemplate, templateData = [] }) => {
 
                 <FormControl>
                   <Typography style={{ fontSize: "1rem" }}>Name</Typography>
-                  {/* <TextField
-                                        variant="outlined"
-                                        sx={{ marginBottom: "0.4em" }}
-                                        InputProps={{ style: { height: "40px" } }}
-                                        value={name}
-                                        onChange={(e) => setName(e.target.value)}
-                                    /> */}
                   <AutoCompleteSearch
                     autoCompleteonChange={(val) => {
                       setName(`${val["firstName"]} ${val["lastName"]}`);
@@ -290,38 +258,6 @@ const PreviewPage = ({ selectedTemplate, templateData = [] }) => {
                     secondaryTextOption={"emailId"}
                     placeholder={"Search for employee"}
                   />
-                  {/* <Typography sx={{ fontSize: "11px" }}>Font Size</Typography>
-                                    <Slider
-                                        size="small"
-                                        key={"font"}
-                                        value={Number(nameFont)}
-                                        onChange={(e) => setNameFont(e.target.value)}
-                                        valueLabelDisplay="auto"
-                                    />
-                                    <Typography sx={{ fontSize: "11px" }}>
-                                        Left Position
-                                    </Typography>
-                                    <Slider
-                                        size="small"
-                                        key={"left"}
-                                        min={0}
-                                        max={500}
-                                        value={Number(nameLeftPostion)}
-                                        onChange={(e) => setNameLeftPostion(e.target.value)}
-                                        valueLabelDisplay="auto"
-                                    />
-                                    <Typography sx={{ fontSize: "11px" }}>
-                                        Top Position
-                                    </Typography>
-                                    <Slider
-                                        size="small"
-                                        key={"top"}
-                                        min={0}
-                                        max={500}
-                                        value={Number(nameTopPostion)}
-                                        onChange={(e) => setNameTopPostion(e.target.value)}
-                                        valueLabelDisplay="auto"
-                                    /> */}
                 </FormControl>
               </Grid>
               <Grid item xs={12}>
@@ -337,38 +273,6 @@ const PreviewPage = ({ selectedTemplate, templateData = [] }) => {
                     value={message}
                     onChange={(e) => setMessage(e.target.value)}
                   />
-                  {/* <Typography sx={{ fontSize: "11px" }}>Font Size</Typography>
-                                    <Slider
-                                    size="small"
-                                    key={"font"}
-                                        value={Number(messageFont)}
-                                        onChange={(e) => setMessageFont(e.target.value)}
-                                        valueLabelDisplay="auto"
-                                    />
-                                    <Typography sx={{ fontSize: "11px" }}>
-                                        Left Position
-                                    </Typography>
-                                    <Slider
-                                    size="small"
-                                        key={"left"}
-                                        min={0}
-                                        max={500}
-                                        value={Number(messageLeftPostion)}
-                                        onChange={(e) => setMessageLeftPostion(e.target.value)}
-                                        valueLabelDisplay="auto"
-                                    />
-                                    <Typography sx={{ fontSize: "11px" }}>
-                                        Top Position
-                                        </Typography>
-                                    <Slider
-                                        size="small"
-                                        key={"top"}
-                                        min={0}
-                                        max={500}
-                                        value={Number(messageTopPostion)}
-                                        onChange={(e) => setMessageTopPostion(e.target.value)}
-                                        valueLabelDisplay="auto"
-                                    /> */}
                 </FormControl>
               </Grid>
               <Grid item xs={12}>
@@ -386,32 +290,17 @@ const PreviewPage = ({ selectedTemplate, templateData = [] }) => {
               </Grid>
               <Grid item xs={12} sx={{ marginTop: "1em" }}>
                 <ButtonGroup>
-                  {/* <Button
-                                        variant="contained"
-                                        disabled={((name === "" || message === "") || (editMode))}
-                                        onClick={() => onButtonClick()}
-                                        >
-                                        Download
-                                    </Button> */}
                   <Button
                     variant="contained"
+                    sx={{textTransform: "none", fontWeight: "400"}}
                     disabled={name === "" || message === "" || editMode}
                     onClick={handleAppreciation}
-                    // onClick={() => {
-                    //   window.location(
-                    //     "mailto:email@example.com, secondemail@example.com"
-                    //   );
-                    //   let link = document.createElement("a");
-                    //   link.href =
-                    //     "mailto:email@example.com, secondemail@example.com";
-                    //   console.log(link);
-                    //   link.click();
-                    // }}
                   >
                     Send
                   </Button>
                   <Button
                     variant="contained"
+                    sx={{textTransform: "none", fontWeight: "400"}}
                     onClick={() => setEditMode((prev) => !prev)}
                   >
                     {editMode ? "Save" : "Edit"}
@@ -432,8 +321,6 @@ const PreviewPage = ({ selectedTemplate, templateData = [] }) => {
           }}
         >
           <StyledCertificate ref={ref}>
-            {/* <PositionedItem sx={{ width: "100%", height: "500px" }}> */}
-
             <motion.div
               style={{
                 height: "100%",
@@ -492,29 +379,6 @@ const PreviewPage = ({ selectedTemplate, templateData = [] }) => {
                 </Typography>
               </motion.div>
             </motion.div>
-            {/* </PositionedItem> */}
-
-            {/* <PositionedName
-                            style={{
-                                fontSize: `${nameFont}px`,
-                                left: `${nameLeftPostion}px`,
-                                top: `${nameTopPostion}px`,
-                            }}
-                        >
-                            {certificateData.header} {name}
-                        </PositionedName>
-                        <PositionedName
-                            style={{
-                                fontSize: `${messageFont}px`,
-                                left: `${messageLeftPostion}px`,
-                                top: `${messageTopPostion}px`,
-                            }}
-                        >
-                            {certificateData.basicMessage} {message}
-                        </PositionedName>
-                        <PositionedName>
-                            {certificateData.footer}
-                        </PositionedName> */}
             <img
               height={"500px"}
               src={`data:image/png;base64,${certificateData?.image}`}

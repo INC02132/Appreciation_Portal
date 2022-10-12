@@ -1,7 +1,7 @@
 import axios from "axios";
 import React, { createRef, useCallback, useEffect, useState } from "react";
-import PreviewPage from "./PreviewPage";
-import ValueCardsDashboard from "./ValueCardsDashboard";
+import PreviewPage from "../PreviewPage/PreviewPage"
+import ValueCardsDashboard from "../ValueCardDashboardPage/ValueCardsDashboard";
 
 const AppreciatePage = () => {
   const [showPreviewPage, setShowPreviewPage] = useState(false);

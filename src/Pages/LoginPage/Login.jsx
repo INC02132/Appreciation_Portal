@@ -1,7 +1,7 @@
 import { AppBar, Button, Toolbar, Typography } from "@mui/material";
 import React, { useState } from "react";
 import { useMsal } from "@azure/msal-react";
-import { loginRequest } from "../Utils/authConfig";
+import { loginRequest } from "../../Utils/authConfig";
 
 function handleLogin(instance) {
     instance.loginRedirect(loginRequest).catch((e) => {
