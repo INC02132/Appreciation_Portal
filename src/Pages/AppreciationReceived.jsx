@@ -23,6 +23,8 @@ export default function AppreciationReceived() {
  
   const [receivedCard, setReceivedCard] = useState(null);
 
+  const [searchText, setSearchText] = useState("");
+
   const fetchData = async () => {
     try {
       let res = await axios.get(
@@ -87,6 +89,7 @@ export default function AppreciationReceived() {
               placeholder="Search"
               fullWidth
               focused={false}
+              onChange={(e) => setSearchText(e.target.value)}
               InputProps={{ disableUnderline: true }}
             />
             <IconButton disableRipple>
@@ -95,7 +98,9 @@ export default function AppreciationReceived() {
           </Box>
 
           {receivedCard?.map((item) => {
-            return <AppreciationCard cardData={item} setSelectedCard={setSelectedCard} />;
+            return (searchText.toLowerCase().includes(item.template?.category?.toLowerCase())||
+            searchText.toLowerCase().includes( item.sender?.firstName?.toLowerCase)) &&
+             <AppreciationCard cardData={item} setSelectedCard={setSelectedCard} />;
           })}
         </Card>
       </Grid>
