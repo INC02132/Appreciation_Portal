@@ -82,11 +82,9 @@ export default function AppreciationReceived() {
           }}
         >
           <Paper
-            className="wbScroll"
             elevation={6}
             sx={{
-              height: "95%",
-              overflow: "auto",
+              height: "95%"
             }}
           >
             <Grid container gap={1} sx={{ padding: "1em 1em" }}>
@@ -125,7 +123,8 @@ export default function AppreciationReceived() {
                   <SearchIcon />
                 </IconButton>
               </Box>
-
+              <Box className= "wbScroll" sx={{height: "26rem",
+            overflowY: "scroll", padding: "1rem"}}>
               {receivedCard?.map((item) => {
                 // return (
                 //   (searchText
@@ -147,6 +146,7 @@ export default function AppreciationReceived() {
                     />
                 );
               })}
+              </Box>
             </Grid>
           </Paper>
         </Grid>
@@ -193,7 +193,7 @@ export default function AppreciationReceived() {
               alt="Certificate"
             />
           </StyledCertificate>
-          <Button variant="contained" sx={{ marginTop: "1rem" }}>
+          <Button variant="contained" sx={{ marginTop: "1rem", textTransform: "none", fontWeight: "400" }}>
             Download
           </Button>
         </Grid>
@@ -225,7 +225,7 @@ function AppreciationCard({ cardData, setSelectedCard }) {
       onClick={() => handleClick()}
       elevation={8}
       sx={{
-        width: "300px",
+        width: "16rem",
         height: "107px",
         borderRadius: "10px",
         marginTop: "10px",

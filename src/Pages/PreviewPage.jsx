@@ -395,6 +395,7 @@ const PreviewPage = ({ selectedTemplate, templateData = [] }) => {
                                     </Button> */}
                   <Button
                     variant="contained"
+                    sx={{textTransform: "none", fontWeight: "400"}}
                     disabled={name === "" || message === "" || editMode}
                     onClick={handleAppreciation}
                     // onClick={() => {
@@ -412,6 +413,7 @@ const PreviewPage = ({ selectedTemplate, templateData = [] }) => {
                   </Button>
                   <Button
                     variant="contained"
+                    sx={{textTransform: "none", fontWeight: "400"}}
                     onClick={() => setEditMode((prev) => !prev)}
                   >
                     {editMode ? "Save" : "Edit"}

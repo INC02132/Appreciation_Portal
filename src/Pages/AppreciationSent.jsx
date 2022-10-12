@@ -79,11 +79,10 @@ export default function AppreciationSent() {
           }}
         >
           <Paper
-            className="wbScroll"
+            // className="wbScroll"
             elevation={6}
             sx={{
               height: "95%",
-              overflow: "auto",
             }}
           >
             <Grid container gap={1} sx={{ padding: "1em 1em" }}>
@@ -121,7 +120,9 @@ export default function AppreciationSent() {
                   <SearchIcon />
                 </IconButton>
               </Box>
-
+              
+              <Box className= "wbScroll" sx={{height: "26rem",
+            overflowY: "scroll", padding: "1rem"}}>
               {sentCard?.map((item) => {
                 return (
                   <AppreciationCard
@@ -130,6 +131,8 @@ export default function AppreciationSent() {
                   />
                 );
               })}
+              </Box>
+              
             </Grid>
           </Paper>
         </Grid>
@@ -181,7 +184,7 @@ export default function AppreciationSent() {
             Download
           </Button>
         </Grid>
-        
+
         <Snackbar
           open={toastMessage}
           autoHideDuration={6000}
@@ -209,7 +212,7 @@ function AppreciationCard({ cardData, setSelectedCard }) {
       onClick={() => handleClick()}
       elevation={8}
       sx={{
-        width: "300px",
+        width: "16rem",
         height: "107px",
         borderRadius: "10px",
         marginTop: "10px",
