@@ -174,9 +174,9 @@ export default function AppreciationSent() {
           }}
         >
           {selectedCard === null?<Typography sx={{
-            fontSize:"20px"
+            fontSize:"18px"
 
-          }}> Select a Card to view</Typography>:<>
+          }}>Please select a card to view</Typography>:<>
           <StyledCertificate ref={ref}>
             <Box
               style={{
