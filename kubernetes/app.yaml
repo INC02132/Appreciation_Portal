@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: inc-appre-portalui 
-          image: azuredemoincproducts.azurecr.io/inc-appre-portalui:"__tag__"
+          image: azuredemoincproducts.azurecr.io/inc-appre-portalui:__tag__
           ports:
           - containerPort: 3000
      
