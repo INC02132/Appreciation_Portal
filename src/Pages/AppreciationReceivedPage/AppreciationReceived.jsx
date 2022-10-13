@@ -1,10 +1,5 @@
 import * as React from "react";
-import Box from "@mui/material/Box";
-import Card from "@mui/material/Card";
-import Button from "@mui/material/Button";
-import Typography from "@mui/material/Typography";
-import Grid from "@mui/material/Grid";
-import { Alert, Paper, Snackbar } from "@mui/material";
+import { Box, Card, Button, Paper, Typography, Grid } from "@mui/material";
 import TextField from "@mui/material/TextField/TextField";
 import SearchIcon from "@mui/icons-material/Search";
 import IconButton from "@mui/material/IconButton";
@@ -32,28 +27,16 @@ export default function AppreciationReceived() {
   const { accounts } = useMsal();
   const [receivedCard, setReceivedCard] = useState(null);
   const [searchText, setSearchText] = useState("");
-  const [toastMessage, setToastMessage] = useState(false);
+  // const [count, setCount] = useState(0);
 
   const dispatch = useDispatch();
-
   dispatch(setSelectedNavIndex(1));
-
-  const handleCloseToastMessage = (event, reason) => {
-    if (reason === "clickaway") {
-      return;
-    }
-    setToastMessage(false);
-  };
-
-  
   const ref = createRef();
-
 
   const onButtonClick = useCallback(() => {
     if (ref.current === null) {
       return;
     }
-
 
     toPng(ref.current, { cacheBust: true })
       .then((dataUrl) => {
@@ -76,9 +59,10 @@ export default function AppreciationReceived() {
       );
       if (res.status === 200) {
         setReceivedCard(res.data.data);
+        // setCount(Object.keys(receivedCard).length);
       }
     } catch (error) {
-      console.error(error)
+      console.error(error);
     }
   };
 
@@ -116,7 +100,7 @@ export default function AppreciationReceived() {
           <Paper
             elevation={6}
             sx={{
-              height: "95%"
+              height: "95%",
             }}
           >
             <Grid container gap={1} sx={{ padding: "1em 1em" }}>
@@ -128,7 +112,8 @@ export default function AppreciationReceived() {
                   marginTop: "1em",
                 }}
               >
-                Appreciation Received
+                Appreciation Received 
+                {/* ({count}) */}
               </Typography>
               <Box
                 sx={{
@@ -155,20 +140,25 @@ export default function AppreciationReceived() {
                   <SearchIcon />
                 </IconButton>
               </Box>
-              <Box className= "wbScroll" sx={{height: "23rem",
-            overflowY: "scroll", padding: "1rem"}}>
-              {receivedCard?.map((item) => {
-                return (item.template?.category?.toLowerCase()
-                  .includes(searchText?.toLowerCase()) ||
-                  `${item.sender?.firstName?.toLowerCase()} ${item.sender?.lastName?.toLowerCase()}`
-                    .includes(searchText?.toLocaleLowerCase())) && (
-                  <AppreciationCard
-                      cardData={item}
-                      setSelectedCard={setSelectedCard}
-                    >
-                  </AppreciationCard>
-                );
-              })}
+              <Box
+                className="wbScroll"
+                sx={{ height: "23rem", overflowY: "scroll", padding: "1rem" }}
+              >
+                {receivedCard?.map((item) => {
+                  return (
+                    (item.template?.category
+                      ?.toLowerCase()
+                      .includes(searchText?.toLowerCase()) ||
+                      `${item.sender?.firstName?.toLowerCase()} ${item.sender?.lastName?.toLowerCase()}`.includes(
+                        searchText?.toLocaleLowerCase()
+                      )) && (
+                      <AppreciationCard
+                        cardData={item}
+                        setSelectedCard={setSelectedCard}
+                      ></AppreciationCard>
+                    )
+                  );
+                })}
               </Box>
             </Grid>
           </Paper>
@@ -227,20 +217,6 @@ export default function AppreciationReceived() {
           </Button>
           </>}
         </Grid>
-
-        <Snackbar
-          open={toastMessage}
-          autoHideDuration={6000}
-          onClose={handleCloseToastMessage}
-        >
-          <Alert
-            onClose={handleCloseToastMessage}
-            severity="success"
-            sx={{ width: "100%", color: "#fff", backgroundColor: "#138019" }}
-          >
-            Value Card downloaded successfully!
-          </Alert>
-        </Snackbar>
       </Grid>
     </Box>
   );

@@ -31,19 +31,11 @@ const StyledCertificate = styled(Paper)(({ theme }) => ({
 export default function AppreciationSent() {
   const { accounts } = useMsal();
   const [sentCard, setSentCard] = useState(null);
-  const [toastMessage, setToastMessage] = useState(false);
   const [searchText, setSearchText] = useState("");
 
   const dispatch = useDispatch();
 
   dispatch(setSelectedNavIndex(2));
-
-  const handleCloseToastMessage = (event, reason) => {
-    if (reason === "clickaway") {
-      return;
-    }
-    setToastMessage(false);
-  };
   const ref = createRef();
 
 
@@ -224,20 +216,6 @@ export default function AppreciationSent() {
           </Button>
           </>}
         </Grid>
-
-        <Snackbar
-          open={toastMessage}
-          autoHideDuration={6000}
-          onClose={handleCloseToastMessage}
-        >
-          <Alert
-            onClose={handleCloseToastMessage}
-            severity="success"
-            sx={{ width: "100%", color: "#fff", backgroundColor: "#138019" }}
-          >
-            Value Card downloaded successfully!
-          </Alert>
-        </Snackbar>
       </Grid>
     </Box>
   );
