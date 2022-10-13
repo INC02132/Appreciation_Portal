@@ -13,7 +13,7 @@ steps:
       targetFiles: |
         kubernetes/app.yaml
       encoding: "auto"
-      tokenPattern: "rm"
+      tokenPattern: "default"
       writeBOM: true
       actionOnMissing: "warn"
       keepToken: false
