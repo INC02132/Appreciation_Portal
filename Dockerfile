@@ -10,7 +10,6 @@
 # To deploy production code 
 FROM node:16-alpine
 WORKDIR /app
-ENV NODE_OPTIONS="--max-old-space-size=16384"
 COPY . .
 RUN npm install --force
 # RUN npm prune --production
