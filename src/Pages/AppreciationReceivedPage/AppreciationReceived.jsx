@@ -89,11 +89,13 @@ export default function AppreciationReceived() {
   }, [accounts]);
 
   return (
-    <Box sx={{ height: "calc(100vh - 52px)" }}>
+    <Box sx={{ height: "calc(100vh - 52px)", width: "95%" }}>
       <Grid
         sx={{
           flexGrow: 1,
-          justifyContent: "center",
+          marginLeft:"5%",
+          justifyContent: "flexStart",
+          gap:10,
           alignItems: "center",
           height: "100%",
         }}
@@ -179,9 +181,14 @@ export default function AppreciationReceived() {
             flexDirection: "column",
             justifyContent: "center",
             alignItems: "center",
+            margin:"auto",
+            
           }} 
         >
-          {selectedCard === null?<Box> Select a Card</Box>:<>
+          {selectedCard === null?<Typography sx={{
+            fontSize:"20px"
+
+          }}> Select a Card to view</Typography>:<>
           <StyledCertificate ref={ref}>
             <Box
               style={{

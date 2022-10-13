@@ -82,11 +82,13 @@ export default function AppreciationSent() {
   }, []);
 
   return (
-    <Box sx={{ height: "calc(100vh - 52px)" }}>
+    <Box sx={{ height: "calc(100vh - 52px)", width: "95%" }}>
       <Grid
         sx={{
           flexGrow: 1,
-          justifyContent: "center",
+          marginLeft:"5%",
+          justifyContent: "flexStart",
+          gap:10,
           alignItems: "center",
           height: "100%",
         }}
@@ -176,8 +178,13 @@ export default function AppreciationSent() {
             flexDirection: "column",
             justifyContent: "center",
             alignItems: "center",
+            margin:"auto",
           }}
         >
+          {selectedCard === null?<Typography sx={{
+            fontSize:"20px"
+
+          }}> Select a Card to view</Typography>:<>
           <StyledCertificate ref={ref}>
             <Box
               style={{
@@ -212,9 +219,10 @@ export default function AppreciationSent() {
               alt="Certificate"
             />
           </StyledCertificate>
-          <Button onClick={() => onButtonClick()} variant="contained" sx={{ marginTop: "1rem" }}>
+          <Button onClick={() => onButtonClick()} variant="contained" sx={{ marginTop: "1rem", textTransform: "none", fontWeight: "400" }}>
             Download
           </Button>
+          </>}
         </Grid>
 
         <Snackbar
