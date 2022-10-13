@@ -26,8 +26,8 @@ steps:
     env:
       NODE_OPTIONS: --max_old_space_size=8192
     inputs:
-      containerRegistry: "azuredemo"
-      repository: "itm-ui-azuredemo"
+      containerRegistry: "ACK"
+      repository: "inc-appre-portalui"
       command: "buildAndPush"
       Dockerfile: "**/Dockerfile"
       buildContext: "$(Pipeline.Workspace)/s"
@@ -35,7 +35,7 @@ steps:
   - task: PublishPipelineArtifact@1
     inputs:
       targetPath: "$(Pipeline.Workspace)/s/kubernetes/app.yaml"
-      artifact: "azure-deploy-ui-azuredemo"
+      artifact: "azure-deploy-ui"
       publishLocation: "pipeline"
 
   #- task: PublishPipelineArtifact@1
