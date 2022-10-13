@@ -176,7 +176,7 @@ const PreviewPage = ({ selectedTemplate, templateData = [], showDashBoard }) => 
           }}
         >
           <Box sx={{display: 'flex', alignItems: "start"}}>
-            <IconButton onClick={() => showDashBoard(false)} sx={{marginRight: "5px"}}>
+            <IconButton onClick={() => showDashBoard(false)}>
               <ArrowBackIos />
             </IconButton>
 
