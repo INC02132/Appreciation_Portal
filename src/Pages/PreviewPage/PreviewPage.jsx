@@ -26,6 +26,7 @@ import { useMsal } from "@azure/msal-react";
 import AutoCompleteSearch from "../../Components/SearchComponent/AutoCompleteSearch";
 import axios from "axios";
 import { ArrowBackIos } from "@mui/icons-material";
+import { baseUrl } from "../../Utils/serviceRequest";
 
 const StyledCertificate = styled(Paper)(({ theme }) => ({
   boxShadow: "0 0 5px #000",
@@ -76,7 +77,7 @@ const PreviewPage = ({ selectedTemplate, templateData = [], showDashBoard }) => 
       templateId: selectedTemplate.templateId,
     };
 
-    fetch("http://localhost:8080/appreciation/sendValueCard", {
+    fetch(`${baseUrl}/appreciation/sendValueCard`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(valueCard),
@@ -124,7 +125,7 @@ const PreviewPage = ({ selectedTemplate, templateData = [], showDashBoard }) => 
     try {
       let data = await (
         await axios.get(
-          `http://localhost:8080/appreciation/getUserByParams?param=${value}`
+          `${baseUrl}/appreciation/getUserByParams?param=${value}`
         )
       ).data;
       if (data) {

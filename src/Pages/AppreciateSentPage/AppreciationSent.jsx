@@ -16,6 +16,7 @@ import { useMsal } from "@azure/msal-react";
 import { TimeStampToDateString } from "../../Utils/TimeStampToString";
 import { setSelectedNavIndex } from "../../redux/reducers/appReducer";
 import { useDispatch } from "react-redux";
+import { baseUrl } from "../../Utils/serviceRequest";
 
 const StyledCertificate = styled(Paper)(({ theme }) => ({
   boxShadow: "0 0 5px #000",
@@ -68,7 +69,7 @@ export default function AppreciationSent() {
   const fetchData = async () => {
     try {
       let res = await axios.get(
-        `http://localhost:8080/appreciation/getAppreciationBySenderId?senderId=${accounts[0]?.username ?? ""
+        `${baseUrl}/appreciation/getAppreciationBySenderId?senderId=${accounts[0]?.username ?? ""
         }`
       );
       if (res.status === 200) {

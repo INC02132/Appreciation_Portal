@@ -2,6 +2,7 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { setSelectedNavIndex } from "../../redux/reducers/appReducer";
+import { baseUrl } from "../../Utils/serviceRequest";
 import PreviewPage from "../PreviewPage/PreviewPage"
 import ValueCardsDashboard from "../ValueCardDashboardPage/ValueCardsDashboard";
 
@@ -17,7 +18,7 @@ const AppreciatePage = () => {
 
   const fetchData = async () => {
     try{
-      let res = await axios.get("http://localhost:8080/appreciation/getTemplate");
+      let res = await axios.get(`${baseUrl}/appreciation/getTemplate`);
       if (res.status === 200) {
         // console.log(res.data)
         setTemplateData(res.data.data)

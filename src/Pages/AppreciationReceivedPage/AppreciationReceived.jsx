@@ -16,6 +16,7 @@ import { toPng } from "html-to-image";
 import { TimeStampToDateString } from "../../Utils/TimeStampToString";
 import { useDispatch } from "react-redux";
 import { setSelectedNavIndex } from "../../redux/reducers/appReducer";
+import { baseUrl } from "../../Utils/serviceRequest";
 
 const StyledCertificate = styled(Paper)(({ theme }) => ({
   boxShadow: "0 0 5px #000",
@@ -70,7 +71,7 @@ export default function AppreciationReceived() {
   const fetchData = async () => {
     try {
       let res = await axios.get(
-        `http://localhost:8080/appreciation/getAppreciationReceivedById?receiverId=${
+        `${baseUrl}/appreciation/getAppreciationReceivedById?receiverId=${
           accounts[0]?.username ?? ""
         }`
       );
