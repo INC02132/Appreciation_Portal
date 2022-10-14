@@ -24,8 +24,8 @@ steps:
 
   - task: Docker@2
     inputs:
-      containerRegistry: 'InctureAssetMgmt_ServiceConnection'
-      repository: 'inc-asset-ui'
+      containerRegistry: 'appr_srvc_conn'
+      repository: 'inc-appr-ui'
       command: 'buildAndPush'
       Dockerfile: '**/Dockerfile'
       buildContext: '$(Pipeline.Workspace)/s'
