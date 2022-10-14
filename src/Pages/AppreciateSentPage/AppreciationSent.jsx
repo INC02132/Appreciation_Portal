@@ -32,19 +32,11 @@ const StyledCertificate = styled(Paper)(({ theme }) => ({
 export default function AppreciationSent() {
   const { accounts } = useMsal();
   const [sentCard, setSentCard] = useState(null);
-  const [toastMessage, setToastMessage] = useState(false);
   const [searchText, setSearchText] = useState("");
 
   const dispatch = useDispatch();
 
   dispatch(setSelectedNavIndex(2));
-
-  const handleCloseToastMessage = (event, reason) => {
-    if (reason === "clickaway") {
-      return;
-    }
-    setToastMessage(false);
-  };
   const ref = createRef();
 
 
@@ -83,11 +75,13 @@ export default function AppreciationSent() {
   }, []);
 
   return (
-    <Box sx={{ height: "calc(100vh - 52px)" }}>
+    <Box sx={{ height: "calc(100vh - 52px)", width: "95%" }}>
       <Grid
         sx={{
           flexGrow: 1,
-          justifyContent: "center",
+          marginLeft:"5%",
+          justifyContent: "flexStart",
+          gap:10,
           alignItems: "center",
           height: "100%",
         }}
@@ -177,8 +171,13 @@ export default function AppreciationSent() {
             flexDirection: "column",
             justifyContent: "center",
             alignItems: "center",
+            margin:"auto",
           }}
         >
+          {selectedCard === null?<Typography sx={{
+            fontSize:"18px"
+
+          }}>Please select a card to view</Typography>:<>
           <StyledCertificate ref={ref}>
             <Box
               style={{
@@ -213,24 +212,11 @@ export default function AppreciationSent() {
               alt="Certificate"
             />
           </StyledCertificate>
-          <Button onClick={() => onButtonClick()} variant="contained" sx={{ marginTop: "1rem" }}>
+          <Button onClick={() => onButtonClick()} variant="contained" sx={{ marginTop: "1rem", textTransform: "none", fontWeight: "400" }}>
             Download
           </Button>
+          </>}
         </Grid>
-
-        <Snackbar
-          open={toastMessage}
-          autoHideDuration={6000}
-          onClose={handleCloseToastMessage}
-        >
-          <Alert
-            onClose={handleCloseToastMessage}
-            severity="success"
-            sx={{ width: "100%", color: "#fff", backgroundColor: "#138019" }}
-          >
-            Value Card downloaded successfully!
-          </Alert>
-        </Snackbar>
       </Grid>
     </Box>
   );

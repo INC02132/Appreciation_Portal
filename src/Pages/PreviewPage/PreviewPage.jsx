@@ -65,7 +65,9 @@ const PreviewPage = ({ selectedTemplate, templateData = [], showDashBoard }) => 
 
   //Message field states
   const [message, setMessage] = useState("");
-  const [toastMessage, setToastMessage] = useState(false);
+  const [successMessage, setSuccessMessage] = useState(false);
+  const [failureMessage, setFailureMessage] = useState(false);
+
 
   const { accounts } = useMsal();
 
@@ -86,10 +88,17 @@ const PreviewPage = ({ selectedTemplate, templateData = [], showDashBoard }) => 
         return res.json();
       })
       .then((data) => {
+        if(data.result === "success") {
+          setSuccessMessage(true);
+        } else {
+          setFailureMessage(true);
+        }
         console.log(data);
       });
 
-    setToastMessage(true);
+
+
+    
 
     //   window.location(
     //         "mailto:email@example.com, secondemail@example.com"
@@ -105,7 +114,8 @@ const PreviewPage = ({ selectedTemplate, templateData = [], showDashBoard }) => 
     if (reason === 'clickaway') {
       return;
     }
-    setToastMessage(false);
+    setSuccessMessage(false);
+    setFailureMessage(false);
   };
 
   const handleChange = (e) => {
@@ -177,7 +187,7 @@ const PreviewPage = ({ selectedTemplate, templateData = [], showDashBoard }) => 
           }}
         >
           <Box sx={{display: 'flex', alignItems: "start"}}>
-            <IconButton onClick={() => showDashBoard(false)} sx={{marginRight: "5px"}}>
+            <IconButton onClick={() => showDashBoard(false)}>
               <ArrowBackIos />
             </IconButton>
 
@@ -375,7 +385,7 @@ const PreviewPage = ({ selectedTemplate, templateData = [], showDashBoard }) => 
         </Grid>
 
         <Snackbar
-          open={toastMessage}
+          open={successMessage}
           autoHideDuration={6000}
           onClose={handleCloseToastMessage}
         >
@@ -385,6 +395,20 @@ const PreviewPage = ({ selectedTemplate, templateData = [], showDashBoard }) => 
             sx={{ width: "100%", color: "#fff", backgroundColor: "#138019" }}
           >
             Value Card sent successfully!
+          </Alert>
+        </Snackbar>
+
+        <Snackbar
+          open={failureMessage}
+          autoHideDuration={6000}
+          onClose={handleCloseToastMessage}
+        >
+          <Alert
+            onClose={handleCloseToastMessage}
+            severity="error"
+            sx={{ width: "100%", color: "#fff", backgroundColor: "red" }}
+          >
+            Card not sent!
           </Alert>
         </Snackbar>
       </Grid>

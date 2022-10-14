@@ -31,7 +31,7 @@ const AutoCompleteSearch = ({autoCompleteonChange, textOnChange, options, getOpt
                       type: "search",
                       style: {
                         padding: "0px 4px",
-                        width: "93%",
+                        width: "100%",
                       },
                       endAdornment: <SearchOutlined color="disabled"/>,
                     }}
