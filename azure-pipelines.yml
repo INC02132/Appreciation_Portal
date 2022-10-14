@@ -11,9 +11,9 @@ steps:
   - task: replacetokens@4
     inputs:
       targetFiles: |
-        kubernetes/app.yaml
+        app.yaml
       encoding: "auto"
-      tokenPattern: "default"
+      tokenPattern: "rm"
       writeBOM: true
       actionOnMissing: "warn"
       keepToken: false
@@ -23,25 +23,15 @@ steps:
       enableTelemetry: true
 
   - task: Docker@2
-    env:
-      NODE_OPTIONS: --max_old_space_size=8192
     inputs:
-      containerRegistry: "ACK"
-      repository: "inc-appre-portalui"
-      command: "buildAndPush"
-      Dockerfile: "**/Dockerfile"
-      buildContext: "$(Pipeline.Workspace)/s"
+      containerRegistry: 'InctureAssetMgmt_ServiceConnection'
+      repository: 'inc-asset-ui'
+      command: 'buildAndPush'
+      Dockerfile: '**/Dockerfile'
+      buildContext: '$(Pipeline.Workspace)/s'
 
   - task: PublishPipelineArtifact@1
     inputs:
-      targetPath: "$(Pipeline.Workspace)/s/kubernetes/app.yaml"
-      artifact: "azure-deploy-ui"
+      targetPath: "$(Pipeline.Workspace)/s/app.yaml"
+      artifact: "azure-deploy-ui-demo"
       publishLocation: "pipeline"
-
-  #- task: PublishPipelineArtifact@1
-  #  inputs:
-  #    targetPath: '$(Pipeline.Workspace)/s/manifest.yml'
-  #     artifact: 'sap-deploy-azuredemo'
-  #    publishLocation: 'pipeline'
-
-
