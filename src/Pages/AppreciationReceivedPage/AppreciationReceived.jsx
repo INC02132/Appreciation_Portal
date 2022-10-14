@@ -104,7 +104,7 @@ export default function AppreciationReceived() {
               height: "95%",
             }}
           >
-            <Grid container gap={1} sx={{ padding: "1em 1em" }}>
+            <Grid container gap={1} sx={{ height: "100%", padding: "1em 1em" }}>
               <Typography
                 sx={{
                   fontSize: "1rem",
@@ -143,7 +143,7 @@ export default function AppreciationReceived() {
               </Box>
               <Box
                 className="wbScroll"
-                sx={{ height: "23rem", overflowY: "scroll", padding: "1rem" }}
+                sx={{ height: "70%", overflowY: "scroll", padding: "1rem" }}
               >
                 {receivedCard?.map((item) => {
                   return (
