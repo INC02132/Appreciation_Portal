@@ -1,17 +1,14 @@
 import * as React from "react";
-import { Box, Card, Button, Paper, Typography, Grid } from "@mui/material";
-import TextField from "@mui/material/TextField/TextField";
-import SearchIcon from "@mui/icons-material/Search";
-import IconButton from "@mui/material/IconButton";
+import { Box, Button, Paper, Typography, Grid } from "@mui/material";
 import { createRef, useCallback, useState } from "react";
 import axios from "axios";
 import { styled } from "@mui/system";
 import { useMsal } from "@azure/msal-react";
 import { toPng } from "html-to-image";
-import { TimeStampToDateString } from "../../Utils/TimeStampToString";
 import { useDispatch } from "react-redux";
 import { setSelectedNavIndex } from "../../redux/reducers/appReducer";
 import { baseUrl } from "../../Utils/serviceRequest";
+import CardPanel from "../../Components/CardPanel/CardPanel";
 
 const StyledCertificate = styled(Paper)(({ theme }) => ({
   boxShadow: "0 0 5px #000",
@@ -27,8 +24,6 @@ const StyledCertificate = styled(Paper)(({ theme }) => ({
 export default function AppreciationReceived() {
   const { accounts } = useMsal();
   const [receivedCard, setReceivedCard] = useState(null);
-  const [searchText, setSearchText] = useState("");
-  // const [count, setCount] = useState(0);
 
   const dispatch = useDispatch();
   dispatch(setSelectedNavIndex(1));
@@ -54,8 +49,7 @@ export default function AppreciationReceived() {
   const fetchData = async () => {
     try {
       let res = await axios.get(
-        `${baseUrl}/appreciation/getAppreciationReceivedById?receiverId=${
-          accounts[0]?.username ?? ""
+        `${baseUrl}/appreciation/getAppreciationReceivedById?receiverId=${accounts[0]?.username ?? ""
         }`
       );
       if (res.status === 200) {
@@ -78,9 +72,9 @@ export default function AppreciationReceived() {
       <Grid
         sx={{
           flexGrow: 1,
-          marginLeft:"5%",
+          marginLeft: "5%",
           justifyContent: "flexStart",
-          gap:10,
+          gap: 10,
           alignItems: "center",
           height: "100%",
         }}
@@ -104,64 +98,12 @@ export default function AppreciationReceived() {
               height: "95%",
             }}
           >
-            <Grid container gap={1} sx={{ height: "100%", padding: "1em 1em" }}>
-              <Typography
-                sx={{
-                  fontSize: "1rem",
-                  fontWeight: "500",
-                  textAlign: "center",
-                  marginTop: "1em",
-                }}
-              >
-                Appreciation Received 
-                {/* ({count}) */}
-              </Typography>
-              <Box
-                sx={{
-                  display: "flex",
-                  alignItems: "center",
-                  border: 1,
-                  width: "300px",
-                  borderColor: "#D9D9D9",
-                  borderRadius: "7px",
-                  padding: "0rem",
-                }}
-              >
-                <TextField
-                  sx={{ paddingLeft: "0.5rem" }}
-                  id="input-with-sx"
-                  variant="standard"
-                  placeholder="Search"
-                  fullWidth
-                  focused={false}
-                  onChange={(e) => setSearchText(e.target.value)}
-                  InputProps={{ disableUnderline: true }}
-                />
-                <IconButton disableRipple>
-                  <SearchIcon />
-                </IconButton>
-              </Box>
-              <Box
-                className="wbScroll"
-                sx={{ height: "70%", overflowY: "scroll", padding: "1rem" }}
-              >
-                {receivedCard?.map((item) => {
-                  return (
-                    (item.template?.category
-                      ?.toLowerCase()
-                      .includes(searchText?.toLowerCase()) ||
-                      `${item.sender?.firstName?.toLowerCase()} ${item.sender?.lastName?.toLowerCase()}`.includes(
-                        searchText?.toLocaleLowerCase()
-                      )) && (
-                      <AppreciationCard
-                        cardData={item}
-                        setSelectedCard={setSelectedCard}
-                      ></AppreciationCard>
-                    )
-                  );
-                })}
-              </Box>
-            </Grid>
+            <CardPanel
+              panelTitle={"Appreciation Received"}
+              cards={receivedCard}
+              setSelectedCard={setSelectedCard}
+              type={"From"}
+            />
           </Paper>
         </Grid>
         <Grid
@@ -172,119 +114,53 @@ export default function AppreciationReceived() {
             flexDirection: "column",
             justifyContent: "center",
             alignItems: "center",
-            margin:"auto",
-            
-          }} 
-        >
-          {selectedCard === null?<Typography sx={{
-            fontSize:"18px"
+            margin: "auto",
 
-          }}>Please select a card to view</Typography>:<>
-          <StyledCertificate ref={ref}>
-            <Box
-              style={{
-                height: "100%",
-                width: "100%",
-                position: "absolute",
-                display: "flex",
-                gap: "2em",
-                justifyContent: "center",
-                alignItems: "center",
-                flexDirection: "column",
-              }}
-            >
-              <Typography className="draggable">
-                {selectedCard?.template?.header} {accounts?.[0]?.name ?? " "},
-              </Typography>
-              <Typography className="draggable">
-                {selectedCard?.template?.basicMessage}{" "}
-                {selectedCard?.updatedMessage}
-              </Typography>
-              <Typography className="draggable">
-                {selectedCard?.template?.footer}
-                <br />
-                {selectedCard?.sender?.firstName}{" "}
-                {selectedCard?.sender?.lastName}
-              </Typography>
-            </Box>
-            <img
-              height={"500px"}
-              src={`data:image/png;base64,${selectedCard?.template?.templateFile}`}
-              alt="Certificate"
-            />
-          </StyledCertificate>
-          <Button onClick={() => onButtonClick()} variant="contained" sx={{ marginTop: "1rem", textTransform: "none", fontWeight: "400" }}>
-            Download
-          </Button>
+          }}
+        >
+          {selectedCard === null ? <Typography sx={{
+            fontSize: "18px"
+
+          }}>Please select a card to view</Typography> : <>
+            <StyledCertificate ref={ref}>
+              <Box
+                style={{
+                  height: "100%",
+                  width: "100%",
+                  position: "absolute",
+                  display: "flex",
+                  gap: "2em",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  flexDirection: "column",
+                }}
+              >
+                <Typography className="draggable">
+                  {selectedCard?.template?.header} {accounts?.[0]?.name ?? " "},
+                </Typography>
+                <Typography className="draggable">
+                  {selectedCard?.template?.basicMessage}{" "}
+                  {selectedCard?.updatedMessage}
+                </Typography>
+                <Typography className="draggable">
+                  {selectedCard?.template?.footer}
+                  <br />
+                  {selectedCard?.sender?.firstName}{" "}
+                  {selectedCard?.sender?.lastName}
+                </Typography>
+              </Box>
+              <img
+                height={"500px"}
+                src={`data:image/png;base64,${selectedCard?.template?.templateFile}`}
+                alt="Certificate"
+              />
+            </StyledCertificate>
+            <Button onClick={() => onButtonClick()} variant="contained" sx={{ marginTop: "1rem", textTransform: "none", fontWeight: "400" }}>
+              Download
+            </Button>
           </>}
         </Grid>
       </Grid>
     </Box>
-  );
-}
-
-function AppreciationCard({ cardData, setSelectedCard }) {
-  const handleClick = () => {
-    setSelectedCard(cardData);
-  };
-  return (
-    <Card
-      onClick={() => handleClick()}
-      elevation={8}
-      sx={{
-        width: "16rem",
-        height: "107px",
-        borderRadius: "10px",
-        marginTop: "10px",
-        color: "#002947",
-        backgroundColor: "#EAF2F9",
-        "& :hover": {
-          backgroundColor: "#002947",
-          color: "white",
-        },
-        "& :active": {
-          backgroundColor: "#002947",
-          color: "white",
-        },
-        cursor: "pointer",
-      }}
-    >
-      <div
-        style={{
-          height: "100%",
-          padding: "1rem",
-        }}
-      >
-        <p
-          style={{
-            textAlign: "right",
-            fontSize: "0.8rem",
-          }}
-        >
-          {TimeStampToDateString(cardData?.date)}
-        </p>
-
-        <div style={{ marginTop: "1.1rem" }}>
-          <p
-            style={{
-              fontWeight: "500",
-              fontSize: "1rem",
-            }}
-          >
-            {cardData?.template?.category}
-          </p>
-
-          <p
-            style={{
-              fontSize: "0.9rem",
-              fontWeight: "400",
-              marginTop: "0.1rem",
-            }}
-          >
-            From: {cardData?.sender?.firstName} {cardData?.sender?.lastName}
-          </p>
-        </div>
-      </div>
-    </Card>
   );
 }

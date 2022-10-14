@@ -7,6 +7,7 @@ import AppreciatePage from "./Pages/AppreciatePage/AppreciatePage";
 import AppreciationSent from "./Pages/AppreciateSentPage/AppreciationSent";
 import AppreciationReceived from "./Pages/AppreciationReceivedPage/AppreciationReceived";
 import './App.css'
+import AllAppreciationPage from "./Pages/AllAppreciationPage/AllAppreciationPage";
 
 function App() {
   return (
@@ -23,7 +24,8 @@ function App() {
               <Route exact path="/appreciate" component={AppreciatePage} />
               <Route exact path="/received" component={AppreciationReceived} />
               <Route exact path="/sent" component={AppreciationSent} />
-              <Redirect exact from="/" to="/appreciate" />
+              <Route exact path="/allAppreciation" component={AllAppreciationPage} />
+              <Redirect exact from="*" to="/appreciate" />
             </Switch>
           </div>
         </div>

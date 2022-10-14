@@ -7,11 +7,12 @@ import {
   CardContent,
 } from "@mui/material";
 import React from "react";
+import { RotatingLines } from "react-loader-spinner";
 
 function ValueCards({ template }) {
   return (
     <div>
-      <Card sx={{height: "10rem"}}>
+      <Card sx={{ height: "10rem" }}>
         <Typography
           variant="h5"
           sx={{
@@ -24,9 +25,11 @@ function ValueCards({ template }) {
         </Typography>
         <Grid container sx={{ display: "flex", paddingTop: "0" }}>
           <Grid item md={7}>
-            <CardContent sx={{ flex: "1 0 auto", paddingTop: "0",
-                  textAlign: "justify",
-                  textJustify: "inter-word", }} >
+            <CardContent sx={{
+              flex: "1 0 auto", paddingTop: "0",
+              textAlign: "justify",
+              textJustify: "inter-word",
+            }} >
               <Typography
                 variant="subtitle"
                 sx={{
@@ -96,6 +99,20 @@ function ValueCardsDashboard({ templateData = [], setSelectedTemplate }) {
                     <ValueCards template={template} />
                   </Grid>)
               })
+            }
+            {
+              templateData.length === 0 &&
+              <Box sx={{ width: "100%", height: "250px", display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center" }}>
+
+                <RotatingLines
+                  strokeColor="#002947"
+                  strokeWidth="5"
+                  animationDuration="0.75"
+                  width="70"
+                  visible={true}
+                />
+                <Typography>Loading...</Typography>
+              </Box>
             }
           </Grid>
         </Stack>
