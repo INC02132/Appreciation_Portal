@@ -137,20 +137,35 @@ export default function AppreciationSent() {
                   flexDirection: "column",
                 }}
               >
-                <Typography className="draggable">
-                  {selectedCard?.template?.header}{" "}
-                  {selectedCard?.receiver?.firstName}{" "}
-                  {selectedCard?.receiver?.lastName},
-                </Typography>
-                <Typography className="draggable">
-                  {selectedCard?.template?.basicMessage}{" "}
-                  {selectedCard?.updatedMessage}
-                </Typography>
-                <Typography className="draggable">
-                  {selectedCard?.template?.footer}
-                  <br />
-                  {accounts?.[0]?.name ?? ""}
-                </Typography>
+                <Box className="draggable" style={{
+                  position: "relative",
+                  transform: `${selectedCard?.position?.split(";")?.[0]??""}`
+                }}>
+                  <Typography>
+                    {selectedCard?.template?.header}{" "}
+                    {selectedCard?.receiver?.firstName}{" "}
+                    {selectedCard?.receiver?.lastName},
+                  </Typography>
+                </Box>
+                <Box className="draggable" style={{
+                  position: "relative",
+                  transform: `${selectedCard?.position?.split(";")?.[1]??""}`
+                }}>
+                  <Typography>
+                    {selectedCard?.template?.basicMessage}{" "}
+                    {selectedCard?.updatedMessage}
+                  </Typography>
+                </Box>
+                <Box className="draggable" style={{
+                  position: "relative",
+                  transform: `${selectedCard?.position?.split(";")?.[2]??""}`
+                }}>
+                  <Typography>
+                    {selectedCard?.template?.footer}
+                    <br />
+                    {accounts?.[0]?.name ?? ""}
+                  </Typography>
+                </Box>
               </Box>
               <img
                 height={"500px"}

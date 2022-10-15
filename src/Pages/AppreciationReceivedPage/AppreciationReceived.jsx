@@ -135,19 +135,34 @@ export default function AppreciationReceived() {
                   flexDirection: "column",
                 }}
               >
-                <Typography className="draggable">
-                  {selectedCard?.template?.header} {accounts?.[0]?.name ?? " "},
-                </Typography>
-                <Typography className="draggable">
-                  {selectedCard?.template?.basicMessage}{" "}
-                  {selectedCard?.updatedMessage}
-                </Typography>
-                <Typography className="draggable">
-                  {selectedCard?.template?.footer}
-                  <br />
-                  {selectedCard?.sender?.firstName}{" "}
-                  {selectedCard?.sender?.lastName}
-                </Typography>
+                <Box className="draggable" style={{
+                  position: "relative",
+                  transform: `${selectedCard?.position?.split(";")?.[1] ?? ""}`
+                }}>
+                  <Typography>
+                    {selectedCard?.template?.header} {accounts?.[0]?.name ?? " "},
+                  </Typography>
+                </Box>
+                <Box className="draggable" style={{
+                  position: "relative",
+                  transform: `${selectedCard?.position?.split(";")?.[1] ?? ""}`
+                }}>
+                  <Typography>
+                    {selectedCard?.template?.basicMessage}{" "}
+                    {selectedCard?.updatedMessage}
+                  </Typography>
+                </Box>
+                <Box className="draggable" style={{
+                  position: "relative",
+                  transform: `${selectedCard?.position?.split(";")?.[1] ?? ""}`
+                }}>
+                  <Typography>
+                    {selectedCard?.template?.footer}
+                    <br />
+                    {selectedCard?.sender?.firstName}{" "}
+                    {selectedCard?.sender?.lastName}
+                  </Typography>
+                </Box>
               </Box>
               <img
                 height={"500px"}

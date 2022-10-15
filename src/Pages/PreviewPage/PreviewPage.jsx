@@ -27,6 +27,7 @@ import AutoCompleteSearch from "../../Components/SearchComponent/AutoCompleteSea
 import axios from "axios";
 import { ArrowBackIos } from "@mui/icons-material";
 import { baseUrl } from "../../Utils/serviceRequest";
+import { useEffect } from "react";
 
 const StyledCertificate = styled(Paper)(({ theme }) => ({
   boxShadow: "0 0 5px #000",
@@ -48,14 +49,14 @@ const PreviewPage = ({ selectedTemplate, templateData = [], showDashBoard }) => 
     image: selectedTemplate.templateFile,
     header: selectedTemplate.header,
     footer: selectedTemplate.footer,
-    basicMessage: selectedTemplate.basicMessage,
-    nameLeftPostion: "220",
-    nameTopPostion: "148",
-    messageLeftPostion: "450",
-    messageTopPostion: "237",
-    nameFontSize: "20",
-    messageFontSize: "20",
+    templateId: selectedTemplate.templateId,
+    basicMessage: selectedTemplate.basicMessage
   });
+
+  //position state for text components(draggable)
+  const [headerPosition, setHeaderPosition] = useState("");
+  const [bodyPosition, setBodyPosition] = useState("");
+  const [footerPosition, setFooterPosition] = useState("");
 
   // const [templateDataList, setTemplateDataList] = useState(templateData)
 
@@ -71,12 +72,18 @@ const PreviewPage = ({ selectedTemplate, templateData = [], showDashBoard }) => 
 
   const { accounts } = useMsal();
 
+  const header = useRef();
+  const body = useRef();
+  const footer = useRef();
+
   const handleAppreciation = () => {
     const valueCard = {
       updatedMessage: message,
       senderEmail: accounts[0].username,
       receiverEmail: receiverEmail,
-      templateId: selectedTemplate.templateId,
+      templateId: certificateData.templateId,
+      status: "pending",
+      position: `${headerPosition};${bodyPosition};${footerPosition}`
     };
 
     fetch(`${baseUrl}/appreciation/sendValueCard`, {
@@ -128,6 +135,7 @@ const PreviewPage = ({ selectedTemplate, templateData = [], showDashBoard }) => 
       header: temp.header,
       footer: temp.footer,
       basicMessage: temp.basicMessage,
+      templateId: temp.templateId
     });
   };
 
@@ -162,6 +170,7 @@ const PreviewPage = ({ selectedTemplate, templateData = [], showDashBoard }) => 
   const [userSearchData, setUserSearchData] = useState([]);
 
   const optimizedFn = useCallback(debounce(handleChangeSearch), []);
+
 
   return (
     <Box sx={{ height: "calc(100vh - 52px)" }}>
@@ -332,20 +341,29 @@ const PreviewPage = ({ selectedTemplate, templateData = [], showDashBoard }) => 
               ref={constraintsRef}
             >
               <motion.div
+              ref={header}
+                dragDirectionLock
                 className="draggable"
                 style={{
                   border: editMode
                     ? "dashed 2px #ddd"
                     : "dashed 2px transparent",
+                    position: "relative",
+                    top: 0,
+                    right:0,
                 }}
                 drag={editMode}
                 dragConstraints={constraintsRef}
+                onDragEnd={(e, info) => setHeaderPosition(header.current.style.transform)}
+
+                
               >
                 <Typography>
                   {certificateData.header} {name === "" ? "<Name>" : name},
                 </Typography>
               </motion.div>
               <motion.div
+              ref={body}
                 className="draggable"
                 style={{
                   border: editMode
@@ -354,12 +372,15 @@ const PreviewPage = ({ selectedTemplate, templateData = [], showDashBoard }) => 
                 }}
                 drag={editMode}
                 dragConstraints={constraintsRef}
+                onDragEnd={(e, info) => setBodyPosition(body.current.style.transform)}
+
               >
                 <Typography>
                   {certificateData.basicMessage} {message}
                 </Typography>
               </motion.div>
               <motion.div
+              ref={footer}
                 className="draggable"
                 style={{
                   border: editMode
@@ -368,6 +389,8 @@ const PreviewPage = ({ selectedTemplate, templateData = [], showDashBoard }) => 
                 }}
                 drag={editMode}
                 dragConstraints={constraintsRef}
+                onDragEnd={(e, info) => setFooterPosition(footer.current.style.transform)}
+
               >
                 <Typography>
                   {certificateData.footer}
