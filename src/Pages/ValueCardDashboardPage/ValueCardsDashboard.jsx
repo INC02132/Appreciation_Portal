@@ -8,6 +8,7 @@ import {
 } from "@mui/material";
 import React from "react";
 import { RotatingLines } from "react-loader-spinner";
+import { useSelector } from "react-redux";
 
 function ValueCards({ template }) {
   return (
@@ -55,7 +56,9 @@ function ValueCards({ template }) {
   );
 }
 
-function ValueCardsDashboard({ templateData = [], setSelectedTemplate }) {
+function ValueCardsDashboard({ setSelectedTemplate }) {
+
+  const templateData = useSelector(state => state.appReducer.templateData);
 
   return (
     <div>

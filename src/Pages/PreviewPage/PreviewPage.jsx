@@ -28,6 +28,7 @@ import axios from "axios";
 import { ArrowBackIos } from "@mui/icons-material";
 import { baseUrl } from "../../Utils/serviceRequest";
 import { useEffect } from "react";
+import { useSelector } from "react-redux";
 
 const StyledCertificate = styled(Paper)(({ theme }) => ({
   boxShadow: "0 0 5px #000",
@@ -40,8 +41,10 @@ const StyledCertificate = styled(Paper)(({ theme }) => ({
   alignItems: "center",
 }));
 
-const PreviewPage = ({ selectedTemplate, templateData = [], showDashBoard }) => {
+const PreviewPage = ({ selectedTemplate, showDashBoard }) => {
   const ref = createRef();
+  const templateData = useSelector(state => state.appReducer.templateData);
+
 
   const [certificateData, setCertificateData] = useState({
     type: selectedTemplate.category,
@@ -85,6 +88,8 @@ const PreviewPage = ({ selectedTemplate, templateData = [], showDashBoard }) => 
       status: "pending",
       position: `${headerPosition};${bodyPosition};${footerPosition}`
     };
+
+
 
     fetch(`${baseUrl}/appreciation/sendValueCard`, {
       method: "POST",

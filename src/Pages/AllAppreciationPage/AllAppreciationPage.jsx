@@ -5,7 +5,7 @@ import { useMsal } from "@azure/msal-react";
 import { baseUrl } from "../../Utils/serviceRequest";
 import axios from "axios";
 import { toPng } from "html-to-image";
-import { Box, Button, Grid, Paper, styled, Typography } from "@mui/material";
+import { Box, Button, ButtonGroup, Grid, Paper, styled, Typography } from "@mui/material";
 import CardPanel from "../../Components/CardPanel/CardPanel";
 
 const StyledCertificate = styled(Paper)(({ theme }) => ({
@@ -77,6 +77,18 @@ const AllAppreciationPage = () => {
     }
   };
   const [selectedCard, setSelectedCard] = useState(null);
+
+  const changeStatus = async (status) => {
+    let url = `${baseUrl}/appreciation/updateStatus/${selectedCard.valueCardId}?status=${status}`;
+    try {
+      let res = axios.put(url);
+      if (res.status === 200) {
+        console.log("changed");
+      }
+    } catch (err) {
+      console.error(err);
+    }
+  }
 
   useEffect(() => {
     fetchData();
@@ -179,9 +191,39 @@ const AllAppreciationPage = () => {
                 alt="Certificate"
               />
             </StyledCertificate>
-            <Button onClick={() => onButtonClick()} variant="contained" sx={{ marginTop: "1rem", textTransform: "none", fontWeight: "400" }}>
-              Download
-            </Button>
+            <ButtonGroup>
+
+              <Button onClick={() => onButtonClick()} variant="contained" sx={{ marginRight: "3rem", marginTop: "1rem", textTransform: "none", fontWeight: "400" }}>
+                Download
+              </Button>
+              {
+                selectedCard.status === "approved" &&
+                <ButtonGroup>
+                  <Button variant="contained" sx={{ backgroundColor: "red", marginTop: "1rem", textTransform: "none", fontWeight: "400"}} onClick={() => changeStatus("rejected")}>
+                    Reject
+                  </Button>
+                </ButtonGroup>
+              }
+              {
+                selectedCard.status === "pending" &&
+                <ButtonGroup>
+                  <Button variant="contained" sx={{ backgroundColor: "green", marginTop: "1rem", textTransform: "none", fontWeight: "400"}} onClick={() => changeStatus("approved")}>
+                    Approve
+                  </Button>
+                  <Button variant="contained" sx={{ backgroundColor: "red", marginTop: "1rem", textTransform: "none", fontWeight: "400"}} onClick={() => changeStatus("rejected")}>
+                    Reject
+                  </Button>
+                </ButtonGroup>
+              }
+              {
+                selectedCard.status === "rejected" &&
+                <ButtonGroup>
+                  <Button variant="contained" sx={{  backgroundColor: "green", marginTop: "1rem", textTransform: "none", fontWeight: "400"}} onClick={() => changeStatus("approved")}>
+                    Approve
+                  </Button>
+                </ButtonGroup>
+              }
+            </ButtonGroup>
           </>}
         </Grid>
       </Grid>

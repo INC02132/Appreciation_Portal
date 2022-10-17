@@ -4,6 +4,7 @@ export const appReducer = createSlice({
   initialState: {
     selectedNavIndex: 0,
     selectedCardIndex: 0,
+    templateData: []
   },
   reducers: {
     //Navigation related reducer
@@ -12,11 +13,14 @@ export const appReducer = createSlice({
     },
     setSelectedCardIndex: (state, action) =>{
       state.selectedNavIndex = action.payload || 0;
+    },
+    setTemplateData: (state, action) => {
+      state.templateData = action.payload;
     }
   },
 });
 
 
-export const { setSelectedNavIndex, setSelectedCardIndex } = appReducer.actions;
+export const { setSelectedNavIndex, setSelectedCardIndex, setTemplateData } = appReducer.actions;
 
 export default appReducer.reducer;

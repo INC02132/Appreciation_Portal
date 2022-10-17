@@ -1,6 +1,6 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { setSelectedNavIndex } from "../../redux/reducers/appReducer";
 import { baseUrl } from "../../Utils/serviceRequest";
 import PreviewPage from "../PreviewPage/PreviewPage"
@@ -14,19 +14,19 @@ const AppreciatePage = () => {
   dispatch(setSelectedNavIndex(0));
 
 
-  const [templateData, setTemplateData] = useState([]);
+  // const [templateData, setTemplateData] = useState([]);
 
-  const fetchData = async () => {
-    try{
-      let res = await axios.get(`${baseUrl}/appreciation/getTemplate`);
-      if (res.status === 200) {
-        // console.log(res.data)
-        setTemplateData(res.data.data)
-      }
-    } catch(error) {
-      console.error(error)
-    }
-  }
+  // const fetchData = async () => {
+  //   try{
+  //     let res = await axios.get(`${baseUrl}/appreciation/getTemplate`);
+  //     if (res.status === 200) {
+  //       // console.log(res.data)
+  //       setTemplateData(res.data.data)
+  //     }
+  //   } catch(error) {
+  //     console.error(error)
+  //   }
+  // }
 
   const handleSelectTemplate = (template) => {
     setSelectedTemplate(template);
@@ -37,12 +37,12 @@ const AppreciatePage = () => {
     setShowPreviewPage(false);
   }
 
-  useEffect(() => {
-    fetchData();
-  }, [])
+  // useEffect(() => {
+  //   fetchData();
+  // }, [])
 
   return (
-    showPreviewPage ? <PreviewPage showDashBoard={showDashBoard} selectedTemplate={selectedTemplate} templateData={templateData} /> : <ValueCardsDashboard templateData={templateData} setSelectedTemplate={handleSelectTemplate} />
+    showPreviewPage ? <PreviewPage showDashBoard={showDashBoard} selectedTemplate={selectedTemplate}/> : <ValueCardsDashboard setSelectedTemplate={handleSelectTemplate} />
   );
 };
 
