@@ -78,16 +78,16 @@ const SelectedListItem = () => {
         "& .MuiListItemButton-root:hover": {},
       }}
     >
-      <NavItem icon={<CardGiftcardOutlined sx={{color: "#fff"}}/>}  route="appreciate" label="Appreciate" index={0} />
-      <NavItem icon={<Stars sx={{color: "#fff"}}/>} route="received" label="Appreciations Received" index={1} />
-      <NavItem icon={<BarChart sx={{color: "#fff"}}/>} route="sent" label="Appreciations Sent" index={2} />
-      <NavItem icon={<AdminPanelSettings sx={{color: "#fff"}}/>} route="allAppreciation" label="Appreciations (Admin)" index={3} />
+      <NavItem icon={<CardGiftcardOutlined sx={{ color: "#fff" }} />} route="appreciate" label="Appreciate" index={0} />
+      <NavItem icon={<Stars sx={{ color: "#fff" }} />} route="received" label="Appreciations Received" index={1} />
+      <NavItem icon={<BarChart sx={{ color: "#fff" }} />} route="sent" label="Appreciations Sent" index={2} />
+      <NavItem icon={<AdminPanelSettings sx={{ color: "#fff" }} />} show={appReducerState.userRole === "admin"} route="allAppreciation" label="Appreciations (Admin)" index={3} />
     </List>
   );
 
-  function NavItem({ icon=null, route = "", label = "", index = 0 }) {
+  function NavItem({ icon = null, route = "", label = "", show = true, index = 0 }) {
     return (
-      <NavLink
+      show ? <NavLink
         to={`/${route}`}
         style={{
           textDecoration: "none",
@@ -117,7 +117,7 @@ const SelectedListItem = () => {
             </Typography>
           </NavListItem>
         </NavListItemButton>
-      </NavLink>
+      </NavLink> : null
     );
   }
 };

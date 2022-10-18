@@ -9,8 +9,8 @@ import AppreciationReceived from "./Pages/AppreciationReceivedPage/AppreciationR
 import './App.css'
 import AllAppreciationPage from "./Pages/AllAppreciationPage/AllAppreciationPage";
 import { useEffect } from "react";
-import { useDispatch } from "react-redux";
-import { setTemplateData } from "./redux/reducers/appReducer";
+import { useDispatch, useSelector } from "react-redux";
+import { setTemplateData, setUserRole } from "./redux/reducers/appReducer";
 import axios from "axios";
 import { baseUrl } from "./Utils/serviceRequest";
 import { useMsal } from "@azure/msal-react";
@@ -20,6 +20,8 @@ function App() {
   const dispatch = useDispatch();
 
   const { accounts } = useMsal();
+
+  const userRole = useSelector(state => state.appReducer.userRole);
 
   const fetchData = async () => {
     try {
@@ -40,19 +42,17 @@ function App() {
       let lastName = "";
       nameArray.forEach((val, index) => {
         if (index !== 0)
-          lastName+=val+" ";
+          lastName += val + " ";
       })
       let body = {
         "emailId": accounts[0].username,
-        "employeeId": "",
         "firstName": firstName,
         "lastName": lastName,
-        "peopleManagerId": "",
-        "projectManagerId": ""
       }
       let res = await axios.post(`${baseUrl}/appreciation/createUser`, body);
       if (res.status === 200) {
         console.log(res.data)
+        dispatch(setUserRole(res.data.role))
       }
     } catch (error) {
       console.error(error)
@@ -77,7 +77,10 @@ function App() {
               <Route exact path="/appreciate" component={AppreciatePage} />
               <Route exact path="/received" component={AppreciationReceived} />
               <Route exact path="/sent" component={AppreciationSent} />
-              <Route exact path="/allAppreciation" component={AllAppreciationPage} />
+              {
+                userRole === "admin" &&
+                <Route exact path="/allAppreciation" component={AllAppreciationPage} />
+              }
               <Redirect exact from="*" to="/appreciate" />
             </Switch>
           </div>
