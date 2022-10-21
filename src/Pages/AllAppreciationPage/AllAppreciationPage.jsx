@@ -5,7 +5,7 @@ import { useMsal } from "@azure/msal-react";
 import { baseUrl } from "../../Utils/serviceRequest";
 import axios from "axios";
 import { toPng } from "html-to-image";
-import { Box, Button, ButtonGroup, Grid, Paper, styled, Typography } from "@mui/material";
+import { Alert, Box, Button, ButtonGroup, Grid, Paper, Snackbar, styled, Typography } from "@mui/material";
 import CardPanel from "../../Components/CardPanel/CardPanel";
 
 const StyledCertificate = styled(Paper)(({ theme }) => ({
@@ -38,6 +38,18 @@ const AllAppreciationPage = () => {
     if (_status === "all") _status = "";
     setStatus(_status);
   }
+
+  const [successMessage, setSuccessMessage] = useState(false);
+  const [failureMessage, setFailureMessage] = useState(false);
+
+
+  const handleCloseToastMessage = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+    setSuccessMessage(false);
+    setFailureMessage(false);
+  };
 
 
   const onButtonClick = useCallback(() => {
@@ -78,12 +90,16 @@ const AllAppreciationPage = () => {
   };
   const [selectedCard, setSelectedCard] = useState(null);
 
-  const changeStatus = async (status) => {
-    let url = `${baseUrl}/appreciation/updateStatus/${selectedCard.valueCardId}?status=${status}`;
+  const changeStatus = async (_status) => {
+    let url = `${baseUrl}/appreciation/updateStatus/${selectedCard.valueCardId}?status=${_status}`;
     try {
-      let res = axios.put(url);
-      if (res.status === 200) {
-        console.log("changed");
+      let res = await axios.put(url);
+      if (res.data.result === "success") {
+        setSelectedCard({...selectedCard, status: _status})
+        setSuccessMessage(true);
+        console.log(res)
+      } else {
+        setFailureMessage(true);
       }
     } catch (err) {
       console.error(err);
@@ -226,6 +242,33 @@ const AllAppreciationPage = () => {
             </ButtonGroup>
           </>}
         </Grid>
+        <Snackbar
+          open={successMessage}
+          autoHideDuration={6000}
+          onClose={handleCloseToastMessage}
+        >
+          <Alert
+            onClose={handleCloseToastMessage}
+            severity="success"
+            sx={{ width: "100%", color: "#fff", backgroundColor: "#138019" }}
+          >
+            Status changed successfully!
+          </Alert>
+        </Snackbar>
+
+        <Snackbar
+          open={failureMessage}
+          autoHideDuration={6000}
+          onClose={handleCloseToastMessage}
+        >
+          <Alert
+            onClose={handleCloseToastMessage}
+            severity="error"
+            sx={{ width: "100%", color: "#fff", backgroundColor: "red" }}
+          >
+            Some error occured!
+          </Alert>
+        </Snackbar>
       </Grid>
     </Box>
   )
