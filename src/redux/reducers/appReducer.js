@@ -5,6 +5,7 @@ export const appReducer = createSlice({
     selectedNavIndex: 0,
     selectedCardIndex: 0,
     templateData: [],
+    leaderBoardData: [],
     userRole: "user",
   },
   reducers: {
@@ -20,11 +21,14 @@ export const appReducer = createSlice({
     },
     setUserRole: (state, action) => {
       state.userRole = action.payload;
+    },
+    setLeaderBoardData: (state, action) => {
+      state.leaderBoardData = action.payload;
     }
   },
 });
 
 
-export const { setSelectedNavIndex, setSelectedCardIndex, setTemplateData, setUserRole } = appReducer.actions;
+export const { setSelectedNavIndex, setSelectedCardIndex, setTemplateData, setUserRole, setLeaderBoardData } = appReducer.actions;
 
 export default appReducer.reducer;

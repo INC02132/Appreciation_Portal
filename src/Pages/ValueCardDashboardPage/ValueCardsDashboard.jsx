@@ -67,20 +67,21 @@ function ValueCardsDashboard({ setSelectedTemplate }) {
 
   const templateData = useSelector(state => state.appReducer.templateData);
 
-  const [leaderBoardData, setLeaderBoardData] = useState([]);
-  const fetchLeaderBoardData = async () => {
-    try {
-      let res = await axios.get("https://apprservice.practicei.xyz/appreciation/getTopUserCount");
-      if (res.status === 200) {
-        setLeaderBoardData(res.data.data);
-      }
-    } catch (error) {
-      console.error(error);
-    }
-  }
+  // const [leaderBoardData, setLeaderBoardData] = useState([]);
+  // const fetchLeaderBoardData = async () => {
+  //   try {
+  //     let res = await axios.get("https://apprservice.practicei.xyz/appreciation/getTopUserCount");
+  //     if (res.status === 200) {
+  //       setLeaderBoardData(res.data.data);
+  //     }
+  //   } catch (error) {
+  //     console.error(error);
+  //   }
+  // }
+  const leaderBoardData = useSelector(state => state.appReducer.leaderBoardData);
 
   useEffect(() => {
-    fetchLeaderBoardData();
+    // fetchLeaderBoardData();
   }, [])
 
 

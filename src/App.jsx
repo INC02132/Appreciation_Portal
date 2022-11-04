@@ -10,7 +10,7 @@ import './App.css'
 import AllAppreciationPage from "./Pages/AllAppreciationPage/AllAppreciationPage";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { setTemplateData, setUserRole } from "./redux/reducers/appReducer";
+import { setLeaderBoardData, setTemplateData, setUserRole } from "./redux/reducers/appReducer";
 import axios from "axios";
 import { baseUrl } from "./Utils/serviceRequest";
 import { useMsal } from "@azure/msal-react";
@@ -59,8 +59,20 @@ function App() {
     }
   }
 
+  const fetchLeaderBoardData = async () => {
+    try {
+      let res = await axios.get(`${baseUrl}/appreciation/getTopUserCount`);
+      if (res.status === 200) {
+        dispatch(setLeaderBoardData(res.data.data));
+        fetchData();
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
   useEffect(() => {
-    fetchData();
+    fetchLeaderBoardData();
     getUser();
   }, [])
   return (
