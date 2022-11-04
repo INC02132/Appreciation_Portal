@@ -2,10 +2,10 @@
     margin: 0.5vw;
     width: auto;
 }
-.login_page .coverImage {
+/* .login_page .coverImage {
     background-size: cover;
     background-position: center;
-}
+} */
 .login_page .welcome {
     font-size: 1.5rem;
     font-weight: 700;
