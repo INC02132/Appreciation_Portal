@@ -53,6 +53,7 @@ function App() {
       if (res.status === 200) {
         console.log(res.data)
         dispatch(setUserRole(res.data.role))
+        fetchLeaderBoardData();
       }
     } catch (error) {
       console.error(error)
@@ -72,7 +73,6 @@ function App() {
   }
 
   useEffect(() => {
-    fetchLeaderBoardData();
     getUser();
   }, [])
   return (
