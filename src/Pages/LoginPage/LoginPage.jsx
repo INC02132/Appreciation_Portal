@@ -79,7 +79,7 @@ const LoginPage = () => {
         >
           <Typography className="welcome">Welcome!</Typography>
           <Typography className="loginText">
-          Please sign in to access message
+          Please sign in to access
           </Typography>
           <Button
             type="submit"
