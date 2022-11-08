@@ -36,6 +36,7 @@ const LoginPage = () => {
       container
       component="main"
       sx={{ height: "100vh", backgroundColor: "white" }}
+      style={{backgroundImage: "url(./LoginImage.png)", backgroundSize: "100%"}}
       className="login_page"
     >
       <CssBaseline />
@@ -56,12 +57,12 @@ const LoginPage = () => {
               style={{ marginLeft: "1rem" }}
             />
           </div>
-          <Grid
+          {/* <Grid
             className="coverImage"
             sx={{ display: "flex", justifyContent: "center" }}
           >
-            <img src="./word-cloud.png" height="100%" width="100%" alt=" " />
-          </Grid>
+            <img src="./LoginImage.png" height="100%" width="100%" alt=" " />
+          </Grid> */}
         </Stack>
       </Grid>
 

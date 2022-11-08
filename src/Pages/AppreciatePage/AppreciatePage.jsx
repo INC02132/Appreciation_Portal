@@ -5,6 +5,7 @@ import { setSelectedNavIndex } from "../../redux/reducers/appReducer";
 import { baseUrl } from "../../Utils/serviceRequest";
 import PreviewPage from "../PreviewPage/PreviewPage"
 import ValueCardsDashboard from "../ValueCardDashboardPage/ValueCardsDashboard";
+import "./AppreciatePage.css"
 
 const AppreciatePage = () => {
   const [showPreviewPage, setShowPreviewPage] = useState(false);
