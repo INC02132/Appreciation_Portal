@@ -69,7 +69,7 @@ const LoginPage = () => {
       <Grid item md={5} sm={5} square sx={{display: "flex", justifyContent: "center", alignItems: "center"}}>
         <Paper elevation={4}
           sx={{
-            backgroundColor: "transparent",
+            backgroundColor: "white",
             borderRadius: "10px",
             width: "30rem",
             display: "flex",

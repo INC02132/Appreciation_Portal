@@ -78,7 +78,7 @@ const SelectedListItem = () => {
         "& .MuiListItemButton-root:hover": {},
       }}
     >
-      <NavItem icon={<CardGiftcardOutlined sx={{ color: "#fff" }} />} route="appreciate" label="Appreciate" index={0} />
+      <NavItem icon={<CardGiftcardOutlined sx={{ color: "#fff" }} />} route="appreciate" label="My Feed" index={0} />
       <NavItem icon={<Stars sx={{ color: "#fff" }} />} route="received" label="Appreciations Received" index={1} />
       <NavItem icon={<BarChart sx={{ color: "#fff" }} />} route="sent" label="Appreciations Sent" index={2} />
       <NavItem icon={<AdminPanelSettings sx={{ color: "#fff" }} />} show={appReducerState.userRole === "admin"} route="allAppreciation" label="Appreciations (Admin)" index={3} />

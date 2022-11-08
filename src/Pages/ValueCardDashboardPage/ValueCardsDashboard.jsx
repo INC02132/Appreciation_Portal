@@ -36,8 +36,7 @@ function ValueCards({ template }) {
           <Grid item md={7}>
             <CardContent sx={{
               flex: "1 0 auto", paddingTop: "0",
-              textAlign: "justify",
-              textJustify: "inter-word",
+              textAlign: "left",
             }} >
               <Typography
                 variant="subtitle"
@@ -67,12 +66,7 @@ function ValueCards({ template }) {
 function ValueCardsDashboard({ setSelectedTemplate }) {
 
   const templateData = useSelector(state => state.appReducer.templateData);
-
   const leaderBoardData = useSelector(state => state.appReducer.leaderBoardData);
-
-
-
-
   return (
     <div>
       <Box className="wbScroll" sx={{ height: "calc(100vh - 52px)" }}>

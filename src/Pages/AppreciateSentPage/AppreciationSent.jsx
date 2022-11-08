@@ -29,6 +29,7 @@ const StyledCertificate = styled(Paper)(({ theme }) => ({
 export default function AppreciationSent() {
   const { accounts } = useMsal();
   const [sentCard, setSentCard] = useState(null);
+  const [count, setCount] = useState();
 
   const dispatch = useDispatch();
 
@@ -61,6 +62,7 @@ export default function AppreciationSent() {
         }`
       );
       if (res.status === 200) {
+        setCount(res.data.count);
         setSentCard(res.data.data);
       }
     } catch (error) { }
@@ -102,7 +104,7 @@ export default function AppreciationSent() {
             }}
           >
             <CardPanel
-              panelTitle={"Appreciation Sent"}
+              panelTitle={"Appreciation Sent " + "(" + count + ")"}
               cards={sentCard}
               setSelectedCard={setSelectedCard}
               type={"To"}
