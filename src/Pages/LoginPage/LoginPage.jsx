@@ -1,14 +1,11 @@
 import * as React from "react";
 import Button from "@mui/material/Button";
-import CssBaseline from "@mui/material/CssBaseline";
-import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
 import { useMsal } from "@azure/msal-react";
 import { loginRequest } from "../../Utils/authConfig";
 import { useState } from "react";
 import "./LoginPage.css";
-import { Stack } from "@mui/system";
 import { Paper } from "@mui/material";
 
 function handleLogin(instance) {
@@ -39,67 +36,59 @@ const LoginPage = () => {
       style={{backgroundImage: "url(./LoginImage.png)", backgroundSize: "100%"}}
       className="login_page"
     >
-      <CssBaseline />
-      <Grid item md={7} sm={7}>
-        <Stack>
-          <div className="logo">
+      <Grid item md={12} sx={{display: "flex", justifyContent: "space-between"}}>
+            <img
+              src="./incture.png"
+              height="26rem"
+              alt=" "
+              style={{ marginLeft: "1rem", marginTop: "1rem" }}
+            />
             <img
               src="./logo.png"
               height="45rem"
               alt=" "
-              style={{ marginLeft: "1rem" }}
+              style={{ marginRight: "1rem" }}
             />
-            <br></br>
-            <img
-              src="./incture.png"
-              height="24rem"
-              alt=" "
-              style={{ marginLeft: "1rem" }}
-            />
-          </div>
-          {/* <Grid
-            className="coverImage"
-            sx={{ display: "flex", justifyContent: "center" }}
-          >
-            <img src="./LoginImage.png" height="100%" width="100%" alt=" " />
-          </Grid> */}
-        </Stack>
       </Grid>
 
-      <Grid item md={5} sm={5} square sx={{display: "flex", justifyContent: "center", alignItems: "center"}}>
-        <Paper elevation={4}
-          sx={{
-            backgroundColor: "white",
-            borderRadius: "10px",
-            width: "30rem",
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-            padding: "3rem",
-          }}
-        >
-          <Typography className="welcome">Welcome!</Typography>
-          <Typography className="loginText">
-          Please sign in to access
-          </Typography>
-          <Button
-            type="submit"
-            variant="contained"
-            onClick={() => handleLogin(instance)}
+      <Grid container md={12} sx={{display: "flex", justifyContent: "space-between"}}>
+        <Grid item md={6} sm={6}></Grid>
+        <Grid item md={6} sm={6} square sx={{display: "flex", justifyContent: "center", alignItems: "center"}}>
+          <Paper elevation={4}
             sx={{
-              mt: 3,
-              mb: 2,
-              backgroundColor: "#002947",
-              "&:hover": {
-                backgroundColor: "#011828",
-              },
+              backgroundColor: "white",
+              borderRadius: "10px",
+              width: "30rem",
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+              padding: "3rem 2rem 3rem 2rem",
             }}
           >
-            Login
-          </Button>
-        </Paper>
+            <Typography className="welcome">Welcome!</Typography>
+            <Typography className="loginText">
+            Please sign in to access
+            </Typography>
+            <Button
+              type="submit"
+              variant="contained"
+              onClick={() => handleLogin(instance)}
+              sx={{
+                mt: 3,
+                mb: 2,
+                backgroundColor: "#002947",
+                "&:hover": {
+                  backgroundColor: "#011828",
+                },
+              }}
+            >
+              Login
+            </Button>
+          </Paper>
+        </Grid>
       </Grid>
-    </Grid>
+   </Grid>
+        
   );
 };
 
