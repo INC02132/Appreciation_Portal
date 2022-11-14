@@ -6,7 +6,7 @@ import { useMsal } from "@azure/msal-react";
 import { loginRequest } from "../../Utils/authConfig";
 import { useState } from "react";
 import "./LoginPage.css";
-import { Paper } from "@mui/material";
+import { Paper, Stack } from "@mui/material";
 
 function handleLogin(instance) {
   instance.loginRedirect(loginRequest).catch((e) => {
@@ -29,32 +29,31 @@ const LoginPage = () => {
     setToggleState(false);
   };
   return (
-    <Grid
-      container
-      component="main"
+    <Grid container
+    component="main"
       sx={{ height: "100vh", backgroundColor: "white" }}
       style={{backgroundImage: "url(./LoginImage.png)", backgroundSize: "100%"}}
-      className="login_page"
-    >
-      <Grid item md={12} sx={{display: "flex", justifyContent: "space-between"}}>
-            <img
+      className="login_page">
+        <Grid item md={6}>
+        <img
               src="./incture.png"
               height="26rem"
               alt=" "
               style={{ marginLeft: "1rem", marginTop: "1rem" }}
             />
+        </Grid>
+        <Grid item md={6}>
+          <Stack>
+            <Grid sx={{display: "flex", justifyContent: "flex-end"}}>
             <img
               src="./logo.png"
               height="45rem"
               alt=" "
               style={{ marginRight: "1rem" }}
             />
-      </Grid>
-
-      <Grid container md={12} sx={{display: "flex", justifyContent: "space-between"}}>
-        <Grid item md={6} sm={6}></Grid>
-        <Grid item md={6} sm={6} square sx={{display: "flex", justifyContent: "center", alignItems: "center"}}>
-          <Paper elevation={4}
+            </Grid>
+            <Grid sx={{display: "flex", justifyContent: "flex-end", paddingTop: "10rem", paddingRight: "4rem"}}>
+            <Paper elevation={4}
             sx={{
               backgroundColor: "white",
               borderRadius: "10px",
@@ -85,10 +84,11 @@ const LoginPage = () => {
               Login
             </Button>
           </Paper>
+            </Grid>
+          </Stack>
+           
         </Grid>
-      </Grid>
-   </Grid>
-        
+      </Grid>     
   );
 };
 
