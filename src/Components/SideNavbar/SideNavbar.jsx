@@ -25,7 +25,7 @@ function SideNavBar() {
       <Paper
         elevation={2}
         className="side-bar"
-        style={{ backgroundColor: "#002947", borderRadius: "0" }}
+        style={{ backgroundColor: "#002947", borderRadius: "0",  }}
       >
         <div style={{ width: "100px" }}>
           <SelectedListItem />
@@ -40,7 +40,6 @@ const NavListItemButton = styled(ListItemButton)(({ theme }) => ({
   paddingTop: "1vh",
   paddingBottom: "0.5vh",
   paddingLeft: "5px",
-  //   borderLeft: "5px solid #119AFF",
 }));
 const NavListItem = styled(ListItem)(({ theme }) => ({
   display: "block",
@@ -87,12 +86,13 @@ const SelectedListItem = () => {
       }}
     >
       <NavItem icon={<CardGiftcardOutlined sx={{ color: "#fff" }} />} route="appreciate" label="My Feed" index={0} subMenu={false} />
-      <NavItem  index={5} subMenu={true} id="basic-button"
+      <NavItem  index={1} subMenu={true} id="basic-button"
            aria-controls={open ? 'basic-menu' : undefined}
           aria-haspopup="true"
            aria-expanded={open ? 'true' : undefined}
            icon={<AccountBoxIcon sx={{ color: "#fff" }}/>}
-           label="My Profile"></NavItem>
+           label="My Profile"
+           route="received"></NavItem>
       <Menu
           id="basic-menu"
           anchorEl={anchorEl}
@@ -101,12 +101,14 @@ const SelectedListItem = () => {
           MenuListProps={{
             'aria-labelledby': 'basic-button',
           }}
+          sx={{top: "6rem",
+          left: "5.2rem"}}
         >
-          <MenuItem ><NavItem icon={<Stars sx={{ color: "#1D1D1D" }} />} route="received" label="Appreciations Received" index={1} subMenu={false}/></MenuItem>
-          <MenuItem><NavItem icon={<BarChart sx={{ color: "#1D1D1D" }} />} route="sent" label="Appreciations Sent" index={2} subMenu={false} /></MenuItem>
+          <MenuItem><NavItem icon={<Stars sx={{ color: "#1D1D1D" }} />} route="received" label="Appreciations Received" index={2} subMenu={false}/></MenuItem>
+          <MenuItem><NavItem icon={<BarChart sx={{ color: "#1D1D1D" }} />} route="sent" label="Appreciations Sent" index={3} subMenu={false} /></MenuItem>
         </Menu>
-      <NavItem icon={<HelpOutline sx={{ color: "#fff" }} />} route="help" label="Help" index={3} />
-      <NavItem icon={<AdminPanelSettings sx={{ color: "#fff" }} />} show={appReducerState.userRole === "admin"} route="allAppreciation" label="Appreciations (Admin)" index={4} />
+      <NavItem icon={<HelpOutline sx={{ color: "#fff" }} />} route="help" label="Help" index={4} />
+      <NavItem icon={<AdminPanelSettings sx={{ color: "#fff" }} />} show={appReducerState.userRole === "admin"} route="allAppreciation" label="Appreciations (Admin)" index={5} />
 
     </List>
   );

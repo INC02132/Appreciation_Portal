@@ -30,7 +30,7 @@ const AllAppreciationPage = () => {
 
   const dispatch = useDispatch();
 
-  dispatch(setSelectedNavIndex(3));
+  dispatch(setSelectedNavIndex(5));
   const ref = createRef();
 
   const statusHandler = (_status) => {
