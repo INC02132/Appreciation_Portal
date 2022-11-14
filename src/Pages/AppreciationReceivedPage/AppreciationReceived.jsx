@@ -27,7 +27,7 @@ export default function AppreciationReceived() {
   const [count, setCount] = useState();
 
   const dispatch = useDispatch();
-  dispatch(setSelectedNavIndex(2));
+  dispatch(setSelectedNavIndex(1));
   const ref = createRef();
 
   const onButtonClick = useCallback(() => {

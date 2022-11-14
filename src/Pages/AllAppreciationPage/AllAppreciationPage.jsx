@@ -95,18 +95,18 @@ const AllAppreciationPage = () => {
     // let url = `${baseUrl}/appreciation/updateStatus/${selectedCard.valueCardId}?status=${_status}`;
     let url = `${baseUrl}/appreciation/updateStatus`;
     try {
-      let res = _status=== "approved"? 
-      await axios.put(url, {
-        "status": _status,
-        "valueCardId": selectedCard.valueCardId,
-    }):
-      await axios.put(url, {
-        "status": _status,
-        "valueCardId": selectedCard.valueCardId,
-        "rejMessage": comment
-    });
+      let res = _status === "approved" ?
+        await axios.put(url, {
+          "status": _status,
+          "valueCardId": selectedCard.valueCardId,
+        }) :
+        await axios.put(url, {
+          "status": _status,
+          "valueCardId": selectedCard.valueCardId,
+          "rejMessage": comment
+        });
       if (res.data.result === "success") {
-        setSelectedCard({...selectedCard, status: _status})
+        setSelectedCard({ ...selectedCard, status: _status })
         setSuccessMessage(true);
         console.log(res)
       } else {
@@ -120,7 +120,7 @@ const AllAppreciationPage = () => {
   useEffect(() => {
     fetchData();
   }, [status]);
-  
+
   const [open, setOpen] = useState(false);
   const handleClickOpenDialog = () => {
     setOpen(true);
@@ -236,14 +236,16 @@ const AllAppreciationPage = () => {
               />
             </StyledCertificate>
             <ButtonGroup>
-
-              <Button onClick={() => onButtonClick()} variant="contained" sx={{ marginRight: "3rem", marginTop: "1rem", textTransform: "none", fontWeight: "400" }}>
-                Download
-              </Button>
+              {
+                selectedCard.status === "approved" &&
+                <Button onClick={() => onButtonClick()} variant="contained" sx={{ marginRight: "3rem", marginTop: "1rem", textTransform: "none", fontWeight: "400" }}>
+                  Download
+                </Button>
+              }
               {
                 selectedCard.status === "approved" &&
                 <ButtonGroup>
-                  <Button variant="contained" sx={{ backgroundColor: "red", marginTop: "1rem", textTransform: "none", fontWeight: "400"}} onClick={() => changeStatus("rejected")}>
+                  <Button variant="contained" sx={{ backgroundColor: "red", marginTop: "1rem", textTransform: "none", fontWeight: "400" }} onClick={() => changeStatus("rejected")}>
                     Reject
                   </Button>
                 </ButtonGroup>
@@ -251,25 +253,25 @@ const AllAppreciationPage = () => {
               {
                 selectedCard.status === "pending" &&
                 <>
-                <ButtonGroup>
-                  <Button variant="contained" sx={{ backgroundColor: "green", marginTop: "1rem", textTransform: "none", fontWeight: "400"}} onClick={() => changeStatus("approved")}>
-                    Approve
-                  </Button>
-                  <Button variant="contained" sx={{ backgroundColor: "red", marginTop: "1rem", textTransform: "none", fontWeight: "400"}} onClick={handleClickOpenDialog}>
-                    Reject
-                  </Button>
-                  <CommentDialog open={open} setOpen={setOpen} handleCloseDialog={handleCloseDialog} handleCommentChange={handleCommentChange} handleClickOpenDialog={handleClickOpenDialog} handleReject={handleReject}/>
-                </ButtonGroup>
+                  <ButtonGroup>
+                    <Button variant="contained" sx={{ backgroundColor: "green", marginTop: "1rem", textTransform: "none", fontWeight: "400" }} onClick={() => changeStatus("approved")}>
+                      Approve
+                    </Button>
+                    <Button variant="contained" sx={{ backgroundColor: "red", marginTop: "1rem", textTransform: "none", fontWeight: "400" }} onClick={handleClickOpenDialog}>
+                      Reject
+                    </Button>
+                    <CommentDialog open={open} setOpen={setOpen} handleCloseDialog={handleCloseDialog} handleCommentChange={handleCommentChange} handleClickOpenDialog={handleClickOpenDialog} handleReject={handleReject} />
+                  </ButtonGroup>
                 </>
               }
-              {
+              {/* {
                 selectedCard.status === "rejected" &&
                 <ButtonGroup>
                   <Button variant="contained" sx={{  backgroundColor: "green", marginTop: "1rem", textTransform: "none", fontWeight: "400"}} onClick={() => changeStatus("approved")}>
                     Approve
                   </Button>
                 </ButtonGroup>
-              }
+              } */}
             </ButtonGroup>
           </>}
         </Grid>

@@ -102,17 +102,17 @@ const SelectedListItem = () => {
             'aria-labelledby': 'basic-button',
           }}
           sx={{top: "6rem",
-          left: "5.2rem"}}
+          left: "5.2rem", width: "100%"}}
         >
-          <MenuItem><NavItem icon={<Stars sx={{ color: "#1D1D1D" }} />} route="received" label="Appreciations Received" index={2} subMenu={false}/></MenuItem>
-          <MenuItem><NavItem icon={<BarChart sx={{ color: "#1D1D1D" }} />} route="sent" label="Appreciations Sent" index={3} subMenu={false} /></MenuItem>
+          <MenuItem sx={{width: "100%"}}><NavItem icon={<Stars sx={{ color: "#1D1D1D" }} />} route="received" label="Appreciations Received" index={1} lableColor="#000" subMenu={false}/></MenuItem>
+          <MenuItem sx={{width: "100%"}}><NavItem icon={<BarChart sx={{ color: "#1D1D1D" }} />} route="sent" label="Appreciations Sent" index={1}  lableColor="#000" subMenu={false} /></MenuItem>
         </Menu>
       <NavItem icon={<HelpOutline sx={{ color: "#fff" }} />} route="help" label="Help" index={4} />
       <NavItem icon={<AdminPanelSettings sx={{ color: "#fff" }} />} show={appReducerState.userRole === "admin"} route="allAppreciation" label="Appreciations (Admin)" index={5} />
 
     </List>
   );
-  function NavItem({ subMenu, icon = null, route = "", label = "", show = true, index = 0 }) {
+  function NavItem({ subMenu, icon = null, lableColor="primary.light", route = "", label = "", show = true, index = 0 }) {
     return (
       subMenu ?<NavLink
       to={`/${route}`}
@@ -152,6 +152,7 @@ const SelectedListItem = () => {
       to={`/${route}`}
       style={{
         textDecoration: "none",
+        width: "100%"
       }}
     >
       <NavListItemButton
@@ -173,7 +174,7 @@ const SelectedListItem = () => {
               flexGrow: 1,
               textAlign: "center !important",
               textDecoration: "none",
-              color: "primary.light",
+              color: lableColor
             }}
           >
             {label}
