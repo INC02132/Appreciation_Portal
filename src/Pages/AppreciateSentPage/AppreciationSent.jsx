@@ -33,7 +33,7 @@ export default function AppreciationSent() {
 
   const dispatch = useDispatch();
 
-  dispatch(setSelectedNavIndex(2));
+  dispatch(setSelectedNavIndex(3));
   const ref = createRef();
 
 
