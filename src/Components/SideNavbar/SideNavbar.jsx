@@ -4,16 +4,20 @@ import {
   List,
   ListItem,
   ListItemIcon,
+  ListItemText,
   ListItemButton,
   Typography,
   Paper,
   styled,
+  Popover
 } from "@mui/material";
 import { setSelectedNavIndex } from "../../redux/reducers/appReducer";
 import { useDispatch, useSelector } from "react-redux";
 import "./SideNavbar.css";
-import { AdminPanelSettings, BarChart, CardGiftcardOutlined, Stars } from "@mui/icons-material";
-
+import { AdminPanelSettings, BarChart, CardGiftcardOutlined, HelpOutline, Stars } from "@mui/icons-material";
+  import Menu from '@mui/material/Menu';
+  import MenuItem from '@mui/material/MenuItem'; 
+  import AccountBoxIcon from '@mui/icons-material/AccountBox';
 function SideNavBar() {
   return (
     <div>
@@ -29,8 +33,6 @@ function SideNavBar() {
     </div>
   );
 }
-
-
 export default SideNavBar;
 const NavListItemButton = styled(ListItemButton)(({ theme }) => ({
   padding: "0",
@@ -39,7 +41,6 @@ const NavListItemButton = styled(ListItemButton)(({ theme }) => ({
   paddingLeft: "5px",
   //   borderLeft: "5px solid #119AFF",
 }));
-
 const NavListItem = styled(ListItem)(({ theme }) => ({
   display: "block",
   minHeight: 48,
@@ -54,15 +55,21 @@ const NavListItemIcon = styled(ListItemIcon)(({ theme }) => ({
   color: "primary.light",
   textDecoration: "none",
 }));
-
 const SelectedListItem = () => {
   const appReducerState = useSelector((state) => state.appReducer);
   const dispatch = useDispatch();
-
   const handleListItemClick = (event, index) => {
     dispatch(setSelectedNavIndex(index));
   };
-
+  const [anchorEl, setAnchorEl] = React.useState(null);
+  const handleClick = (event,index) => {
+    dispatch(setSelectedNavIndex(index));
+    setAnchorEl(event.currentTarget);
+  };
+  const open = Boolean(anchorEl);
+  const handleClose = () => {
+      setAnchorEl(null);
+    };
   return (
     <List
       component="nav"
@@ -78,46 +85,97 @@ const SelectedListItem = () => {
         "& .MuiListItemButton-root:hover": {},
       }}
     >
-      <NavItem icon={<CardGiftcardOutlined sx={{ color: "#fff" }} />} route="appreciate" label="Appreciate" index={0} />
-      <NavItem icon={<Stars sx={{ color: "#fff" }} />} route="received" label="Appreciations Received" index={1} />
-      <NavItem icon={<BarChart sx={{ color: "#fff" }} />} route="sent" label="Appreciations Sent" index={2} />
-      <NavItem icon={<AdminPanelSettings sx={{ color: "#fff" }} />} show={appReducerState.userRole === "admin"} route="allAppreciation" label="Appreciations (Admin)" index={3} />
+      <NavItem icon={<CardGiftcardOutlined sx={{ color: "#fff" }} />} route="appreciate" label="My Feed" index={0} subMenu={false} />
+      <NavItem  index={4} subMenu={true} id="basic-button"
+           aria-controls={open ? 'basic-menu' : undefined}
+          aria-haspopup="true"
+           aria-expanded={open ? 'true' : undefined}
+           icon={<AccountBoxIcon sx={{ color: "#fff" }}/>}
+           label="My Profile"></NavItem>
+      <Menu
+          id="basic-menu"
+          anchorEl={anchorEl}
+          open={open}
+          onClose={handleClose}
+          MenuListProps={{
+            'aria-labelledby': 'basic-button',
+          }}
+        >
+          <MenuItem ><NavItem icon={<Stars sx={{ color: "#1D1D1D" }} />} route="received" label="Appreciations Received" index={1} subMenu={false}/></MenuItem>
+          <MenuItem><NavItem icon={<BarChart sx={{ color: "#1D1D1D" }} />} route="sent" label="Appreciations Sent" index={2} subMenu={false} /></MenuItem>
+        </Menu>
+      <NavItem icon={<AdminPanelSettings sx={{ color: "#fff" }} />} show={appReducerState.userRole === "admin"} route="allAppreciation" label="Appreciations (Admin)" index={3} subMenu={false}/>
     </List>
   );
-
-  function NavItem({ icon = null, route = "", label = "", show = true, index = 0 }) {
+  function NavItem({ subMenu, icon = null, route = "", label = "", show = true, index = 0 }) {
     return (
-      show ? <NavLink
-        to={`/${route}`}
-        style={{
-          textDecoration: "none",
+      subMenu ?<NavLink
+      to={`/${route}`}
+      style={{
+        textDecoration: "none",
+      }}
+    >
+      <NavListItemButton
+        disableRipple
+        selected={appReducerState.selectedNavIndex === index}
+        onClick={(event) => {
+          handleClick(event, index)
         }}
       >
-        <NavListItemButton
-          disableRipple
-          selected={appReducerState.selectedNavIndex === index}
-          onClick={(event) => handleListItemClick(event, index)}
-        >
-          <NavListItem disablePadding>
-            <NavListItemIcon>
-              {icon}
-            </NavListItemIcon>
-            <Typography
-              display="block"
-              sx={{
-                fontSize: 12,
-                justifyContent: "center",
-                flexGrow: 1,
-                textAlign: "center !important",
-                textDecoration: "none",
-                color: "primary.light",
-              }}
-            >
-              {label}
-            </Typography>
-          </NavListItem>
-        </NavListItemButton>
-      </NavLink> : null
+        <NavListItem disablePadding>
+          <NavListItemIcon>
+            {icon}
+          </NavListItemIcon>
+          <Typography
+            display="block"
+            sx={{
+              fontSize: 12,
+              justifyContent: "center",
+              flexGrow: 1,
+              textAlign: "center !important",
+              textDecoration: "none",
+              color: "primary.light",
+            }}
+          >
+            {label}
+          </Typography>
+        </NavListItem>
+      </NavListItemButton>
+    </NavLink>
+     : 
+     <NavLink
+      to={`/${route}`}
+      style={{
+        textDecoration: "none",
+      }}
+    >
+      <NavListItemButton
+        disableRipple
+        selected={appReducerState.selectedNavIndex === index}
+        onClick={(event) => {
+          handleListItemClick(event, index)
+        }}
+      >
+        <NavListItem disablePadding>
+          <NavListItemIcon>
+            {icon}
+          </NavListItemIcon>
+          <Typography
+            display="block"
+            sx={{
+              fontSize: 12,
+              justifyContent: "center",
+              flexGrow: 1,
+              textAlign: "center !important",
+              textDecoration: "none",
+              color: "primary.light",
+            }}
+          >
+            {label}
+          </Typography>
+        </NavListItem>
+      </NavListItemButton>
+    </NavLink>
     );
   }
 };
