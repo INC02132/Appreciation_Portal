@@ -107,19 +107,6 @@ const PreviewPage = ({ selectedTemplate, showDashBoard }) => {
         }
         console.log(data);
       });
-
-
-
-    
-
-    //   window.location(
-    //         "mailto:email@example.com, secondemail@example.com"
-    //       );
-    //       let link = document.createElement("a");
-    //       link.href =
-    //         "mailto:email@example.com, secondemail@example.com";
-    //       console.log(link);
-    //       link.click();
   };
 
   const handleCloseToastMessage = (event, reason) => {

@@ -104,52 +104,17 @@ const SelectedListItem = () => {
           sx={{top: "6rem",
           left: "5.2rem", width: "100%"}}
         >
-          <MenuItem sx={{width: "100%"}}><NavItem icon={<Stars sx={{ color: "#1D1D1D" }} />} route="received" label="Appreciations Received" index={1} lableColor="#000" subMenu={false}/></MenuItem>
-          <MenuItem sx={{width: "100%"}}><NavItem icon={<BarChart sx={{ color: "#1D1D1D" }} />} route="sent" label="Appreciations Sent" index={1}  lableColor="#000" subMenu={false} /></MenuItem>
+          <MenuItem sx={{width: "100%", padding: "0"}}><NavItem icon={<Stars sx={{ color: "#1D1D1D" }} />} route="received" label="Appreciations Received" index={1} lableColor="#000" subMenu={false} subItem={true}/></MenuItem>
+          <MenuItem sx={{width: "100%", padding: "0"}}><NavItem icon={<BarChart sx={{ color: "#1D1D1D" }} />} route="sent" label="Appreciations Sent" index={1}  lableColor="#000" subMenu={false} subItem={true}/></MenuItem>
         </Menu>
       <NavItem icon={<HelpOutline sx={{ color: "#fff" }} />} route="help" label="Help" index={4} />
       <NavItem icon={<AdminPanelSettings sx={{ color: "#fff" }} />} show={appReducerState.userRole === "admin"} route="allAppreciation" label="Appreciations (Admin)" index={5} />
 
     </List>
   );
-  function NavItem({ subMenu, icon = null, lableColor="primary.light", route = "", label = "", show = true, index = 0 }) {
-    return (
-      subMenu ?<NavLink
-      to={`/${route}`}
-      style={{
-        textDecoration: "none",
-      }}
-    >
-      <NavListItemButton
-        disableRipple
-        selected={appReducerState.selectedNavIndex === index}
-        onClick={(event) => {
-          handleClick(event, index)
-        }}
-      >
-        <NavListItem disablePadding>
-          <NavListItemIcon>
-            {icon}
-          </NavListItemIcon>
-          <Typography
-            display="block"
-            sx={{
-              fontSize: 12,
-              justifyContent: "center",
-              flexGrow: 1,
-              textAlign: "center !important",
-              textDecoration: "none",
-              color: "primary.light",
-            }}
-          >
-            {label}
-          </Typography>
-        </NavListItem>
-      </NavListItemButton>
-    </NavLink>
-     : 
-     <NavLink
-      to={`/${route}`}
+  function NavItem({ subMenu=false, icon = null, lableColor="primary.light", route = "", label = "", show = true, index = 0, subItem=false }) {
+    return <NavLink
+      to={subMenu===false&&`/${route}`}
       style={{
         textDecoration: "none",
         width: "100%"
@@ -158,11 +123,12 @@ const SelectedListItem = () => {
       <NavListItemButton
         disableRipple
         selected={appReducerState.selectedNavIndex === index}
-        onClick={(event) => {
-          handleListItemClick(event, index)
+        onClick={(e) => {
+          subMenu===false ? handleListItemClick(e, index) : handleClick(e, index);
         }}
+        sx={{width: "100%"}}
       >
-        <NavListItem disablePadding>
+        <NavListItem disablePadding sx={{display: subItem?"flex":"block", width: "100%"}}>
           <NavListItemIcon>
             {icon}
           </NavListItemIcon>
@@ -174,7 +140,7 @@ const SelectedListItem = () => {
               flexGrow: 1,
               textAlign: "center !important",
               textDecoration: "none",
-              color: lableColor
+              color: lableColor,
             }}
           >
             {label}
@@ -182,6 +148,5 @@ const SelectedListItem = () => {
         </NavListItem>
       </NavListItemButton>
     </NavLink>
-    );
   }
 };

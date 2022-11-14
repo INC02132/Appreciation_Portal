@@ -73,8 +73,11 @@ function ValueCardsDashboard({ setSelectedTemplate }) {
         <Stack spacing={3} sx={{ margin: "1rem 0 0 1rem" }}>
           <Grid sx={{ height: "230px" }} container gap={2}>
             <Grid sx={{ height: "100%" }} item>
-              <Paper sx={{ height: "100%", width: "15.5rem", position: "relative", display: "flex", justifyContent: "center", alignItems: "center" }}>
-                <EmojiEvents sx={{ color: "#ff900d", fontSize: "40px" }} style={{ transform: "rotate(-25deg)", position: "absolute", top: "-10px", left: "-10px" }} />
+              <Paper sx={{ height: "100%", width: "15.5rem", backgroundColor: "#ddd", position: "relative", display: "flex", justifyContent: "center", alignItems: "center" }}>
+                <Box style={{ transform: "rotate(-35deg)", position: "absolute", top: "-16px", left: "-10px" }}>
+                  <EmojiEvents sx={{ color: "#ff900d", fontSize: "40px" }} />
+                  <Typography sx={{color: "orange"}}>Rank #1</Typography>
+                </Box>
                 {
                   leaderBoardData.length > 0 ? (
                     <Box sx={{ display: "flex", justifyContent: "center", alignItems: "center", flexDirection: "column", padding: "0em", paddingTop: "1.5rem" }}>
@@ -112,29 +115,29 @@ function ValueCardsDashboard({ setSelectedTemplate }) {
                 }
               </Paper>
             </Grid>
-            <Grid item flex={1} sx={{height: "100%", paddingRight: "1rem" }}>
+            <Grid item flex={1} sx={{ height: "100%", paddingRight: "1rem" }}>
               <Typography sx={{ fontSize: "20px", fontWeight: "bold", color: "#002947" }}>
                 Leaderboard
               </Typography>
               <List sx={{ display: "flex", flexDirection: "column", gap: "10px", justifyContent: "stretch", alignContent: "stretch" }}>
-                <Paper elevation={0} sx={{ padding: "0.2em", height: "100%", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+                <Paper elevation={0} sx={{ backgroundColor:"#ddd", padding: "0.2em", height: "100%", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
                   <Box sx={{ width: "20%" }}>
-                    <Typography sx={{ fontWeight: "bold", color: "#002947" }}>
+                    <Typography sx={{ fontWeight: "bold"}}>
                       Rank
                     </Typography>
                   </Box>
                   <Box sx={{ width: "25%" }}>
-                    <Typography sx={{ fontWeight: "bold", color: "#002947" }}>
+                    <Typography sx={{ fontWeight: "bold"}}>
                       Name
                     </Typography>
                   </Box>
                   <Box sx={{ width: "35%" }}>
-                    <Typography sx={{ fontWeight: "bold", color: "#002947" }}>
+                    <Typography sx={{ fontWeight: "bold"}}>
                       Email
                     </Typography>
                   </Box>
                   <Box sx={{ width: "20%", display: "flex", justifyContent: "center" }}>
-                    <Typography sx={{ fontWeight: "bold", color: "#002947" }}>
+                    <Typography sx={{ fontWeight: "bold"}}>
                       Total Cards
                     </Typography>
                   </Box>
@@ -145,7 +148,7 @@ function ValueCardsDashboard({ setSelectedTemplate }) {
                     let detail = leader[1];
                     if (index === 0) return;
                     return (
-                      <Paper sx={{ padding: "0.2em", height: "100%", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+                      <Paper sx={{ backgroundColor: index%2===1 ? "#fff": "#ddd", padding: "0.2em", height: "100%", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
                         <Box sx={{ width: "20%" }}>
                           <Typography sx={{ fontWeight: "bold", color: "#007AD4" }}>
                             #{index + 1}
