@@ -13,7 +13,7 @@ export default function CommentDialog(props) {
       <Dialog open={props.open} onClose={props.handleCloseDialog}>
         <DialogTitle>Reject</DialogTitle>
         <DialogContent>
-        <TextField placeholder='Add a comment' variant="outlined" multiline rows="3"/>
+        <TextField placeholder='Add a comment' variant="outlined" multiline rows="3" onChange={(e) => props.handleCommentChange(e)}/>
         </DialogContent>
         <DialogActions>
             <Button variant="contained" sx={{ backgroundColor: "red", marginTop: "1rem", marginBottom: "1rem", textTransform: "none", fontWeight: "400"}} onClick={props.handleReject}>Reject</Button>

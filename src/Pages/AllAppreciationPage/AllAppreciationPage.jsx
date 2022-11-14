@@ -92,9 +92,19 @@ const AllAppreciationPage = () => {
   const [selectedCard, setSelectedCard] = useState(null);
 
   const changeStatus = async (_status) => {
-    let url = `${baseUrl}/appreciation/updateStatus/${selectedCard.valueCardId}?status=${_status}`;
+    // let url = `${baseUrl}/appreciation/updateStatus/${selectedCard.valueCardId}?status=${_status}`;
+    let url = `${baseUrl}/appreciation/updateStatus`;
     try {
-      let res = await axios.put(url);
+      let res = _status=== "approved"? 
+      await axios.put(url, {
+        "status": _status,
+        "valueCardId": selectedCard.valueCardId,
+    }):
+      await axios.put(url, {
+        "status": _status,
+        "valueCardId": selectedCard.valueCardId,
+        "rejMessage": comment
+    });
       if (res.data.result === "success") {
         setSelectedCard({...selectedCard, status: _status})
         setSuccessMessage(true);
@@ -121,6 +131,11 @@ const AllAppreciationPage = () => {
   const handleReject = () => {
     changeStatus("rejected");
   };
+
+  const [comment, setComment] = useState("");
+  const handleCommentChange = (e) => {
+    setComment(e.target.value);
+  }
 
   return (
     <Box sx={{ height: "calc(100vh - 52px)", width: "95%" }}>
@@ -243,7 +258,7 @@ const AllAppreciationPage = () => {
                   <Button variant="contained" sx={{ backgroundColor: "red", marginTop: "1rem", textTransform: "none", fontWeight: "400"}} onClick={handleClickOpenDialog}>
                     Reject
                   </Button>
-                  <CommentDialog open={open} setOpen={setOpen} handleCloseDialog={handleCloseDialog} handleClickOpenDialog={handleClickOpenDialog} handleReject={handleReject}/>
+                  <CommentDialog open={open} setOpen={setOpen} handleCloseDialog={handleCloseDialog} handleCommentChange={handleCommentChange} handleClickOpenDialog={handleClickOpenDialog} handleReject={handleReject}/>
                 </ButtonGroup>
                 </>
               }
