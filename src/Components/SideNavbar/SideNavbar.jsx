@@ -87,7 +87,7 @@ const SelectedListItem = () => {
       }}
     >
       <NavItem icon={<CardGiftcardOutlined sx={{ color: "#fff" }} />} route="appreciate" label="My Feed" index={0} subMenu={false} />
-      <NavItem  index={4} subMenu={true} id="basic-button"
+      <NavItem  index={5} subMenu={true} id="basic-button"
            aria-controls={open ? 'basic-menu' : undefined}
           aria-haspopup="true"
            aria-expanded={open ? 'true' : undefined}
@@ -105,7 +105,9 @@ const SelectedListItem = () => {
           <MenuItem ><NavItem icon={<Stars sx={{ color: "#1D1D1D" }} />} route="received" label="Appreciations Received" index={1} subMenu={false}/></MenuItem>
           <MenuItem><NavItem icon={<BarChart sx={{ color: "#1D1D1D" }} />} route="sent" label="Appreciations Sent" index={2} subMenu={false} /></MenuItem>
         </Menu>
-      <NavItem icon={<AdminPanelSettings sx={{ color: "#fff" }} />} show={appReducerState.userRole === "admin"} route="allAppreciation" label="Appreciations (Admin)" index={3} subMenu={false}/>
+      <NavItem icon={<HelpOutline sx={{ color: "#fff" }} />} route="help" label="Help" index={3} />
+      <NavItem icon={<AdminPanelSettings sx={{ color: "#fff" }} />} show={appReducerState.userRole === "admin"} route="allAppreciation" label="Appreciations (Admin)" index={4} />
+
     </List>
   );
   function NavItem({ subMenu, icon = null, route = "", label = "", show = true, index = 0 }) {
