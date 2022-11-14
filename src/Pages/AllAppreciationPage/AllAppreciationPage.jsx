@@ -5,8 +5,9 @@ import { useMsal } from "@azure/msal-react";
 import { baseUrl } from "../../Utils/serviceRequest";
 import axios from "axios";
 import { toPng } from "html-to-image";
-import { Alert, Box, Button, ButtonGroup, Grid, Paper, Snackbar, styled, Typography } from "@mui/material";
+import { Alert, Box, Button, ButtonGroup, Grid, Paper, Snackbar, styled, TextField, Typography } from "@mui/material";
 import CardPanel from "../../Components/CardPanel/CardPanel";
+import CommentDialog from "../AllAppreciationPage/CommentDialog";
 
 const StyledCertificate = styled(Paper)(({ theme }) => ({
   boxShadow: "0 0 5px #000",
@@ -109,6 +110,18 @@ const AllAppreciationPage = () => {
   useEffect(() => {
     fetchData();
   }, [status]);
+  
+  const [open, setOpen] = useState(false);
+  const handleClickOpenDialog = () => {
+    setOpen(true);
+  };
+  const handleCloseDialog = () => {
+    setOpen(false);
+  };
+  const handleReject = () => {
+    changeStatus("rejected");
+  };
+
   return (
     <Box sx={{ height: "calc(100vh - 52px)", width: "95%" }}>
       <Grid
@@ -222,14 +235,17 @@ const AllAppreciationPage = () => {
               }
               {
                 selectedCard.status === "pending" &&
+                <>
                 <ButtonGroup>
                   <Button variant="contained" sx={{ backgroundColor: "green", marginTop: "1rem", textTransform: "none", fontWeight: "400"}} onClick={() => changeStatus("approved")}>
                     Approve
                   </Button>
-                  <Button variant="contained" sx={{ backgroundColor: "red", marginTop: "1rem", textTransform: "none", fontWeight: "400"}} onClick={() => changeStatus("rejected")}>
+                  <Button variant="contained" sx={{ backgroundColor: "red", marginTop: "1rem", textTransform: "none", fontWeight: "400"}} onClick={handleClickOpenDialog}>
                     Reject
                   </Button>
+                  <CommentDialog open={open} setOpen={setOpen} handleCloseDialog={handleCloseDialog} handleClickOpenDialog={handleClickOpenDialog} handleReject={handleReject}/>
                 </ButtonGroup>
+                </>
               }
               {
                 selectedCard.status === "rejected" &&
