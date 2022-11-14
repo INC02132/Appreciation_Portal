@@ -12,7 +12,7 @@ import {
 import { setSelectedNavIndex } from "../../redux/reducers/appReducer";
 import { useDispatch, useSelector } from "react-redux";
 import "./SideNavbar.css";
-import { AdminPanelSettings, BarChart, CardGiftcardOutlined, Stars } from "@mui/icons-material";
+import { AdminPanelSettings, BarChart, CardGiftcardOutlined, HelpOutline, Stars } from "@mui/icons-material";
 
 function SideNavBar() {
   return (
@@ -81,7 +81,8 @@ const SelectedListItem = () => {
       <NavItem icon={<CardGiftcardOutlined sx={{ color: "#fff" }} />} route="appreciate" label="My Feed" index={0} />
       <NavItem icon={<Stars sx={{ color: "#fff" }} />} route="received" label="Appreciations Received" index={1} />
       <NavItem icon={<BarChart sx={{ color: "#fff" }} />} route="sent" label="Appreciations Sent" index={2} />
-      <NavItem icon={<AdminPanelSettings sx={{ color: "#fff" }} />} show={appReducerState.userRole === "admin"} route="allAppreciation" label="Appreciations (Admin)" index={3} />
+      <NavItem icon={<HelpOutline sx={{ color: "#fff" }} />} route="help" label="Help" index={3} />
+      <NavItem icon={<AdminPanelSettings sx={{ color: "#fff" }} />} show={appReducerState.userRole === "admin"} route="allAppreciation" label="Appreciations (Admin)" index={4} />
     </List>
   );
 

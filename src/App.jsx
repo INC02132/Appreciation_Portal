@@ -14,6 +14,7 @@ import { setLeaderBoardData, setTemplateData, setUserRole } from "./redux/reduce
 import axios from "axios";
 import { baseUrl } from "./Utils/serviceRequest";
 import { useMsal } from "@azure/msal-react";
+import Help from "./Pages/Help/Help";
 
 function App() {
 
@@ -89,6 +90,7 @@ function App() {
               <Route exact path="/appreciate" component={AppreciatePage} />
               <Route exact path="/received" component={AppreciationReceived} />
               <Route exact path="/sent" component={AppreciationSent} />
+              <Route exact path="/help" component={Help} />
               {
                 userRole === "admin" &&
                 <Route exact path="/allAppreciation" component={AllAppreciationPage} />
