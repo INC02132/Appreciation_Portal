@@ -31,8 +31,8 @@ const LoginPage = () => {
   return (
     <Grid container
     component="main"
-      sx={{ height: "100vh", backgroundColor: "white" }}
-      style={{backgroundImage: "url(./LoginImage.png)", backgroundSize: "100%"}}
+      sx={{ height: "100vh",  backgroundColor: "black" }}
+      style={{backgroundImage: "url(./LoginImage.png)", backgroundSize: "cover"}}
       className="login_page">
         <Grid item md={6}>
         <img

@@ -104,15 +104,15 @@ const SelectedListItem = () => {
           sx={{top: "6rem",
           left: "5.2rem", width: "100%"}}
         >
-          <MenuItem sx={{width: "100%", padding: "0"}}><NavItem icon={<Stars sx={{ color: "#1D1D1D" }} />} route="received" label="Appreciations Received" index={1} lableColor="#000" subMenu={false} subItem={true}/></MenuItem>
-          <MenuItem sx={{width: "100%", padding: "0"}}><NavItem icon={<BarChart sx={{ color: "#1D1D1D" }} />} route="sent" label="Appreciations Sent" index={1}  lableColor="#000" subMenu={false} subItem={true}/></MenuItem>
+          <MenuItem sx={{width: "100%", padding: "0 0.5em"}}><NavItem handleClose={handleClose} icon={<Stars sx={{ color: "#1D1D1D" }} />} route="received" label="Appreciations Received" index={1} lableColor="#000" subMenu={false} subItem={true}/></MenuItem>
+        <MenuItem sx={{width: "100%", padding: "0 0.5em"}}><NavItem handleClose={handleClose} icon={<BarChart sx={{ color: "#1D1D1D" }} />} route="sent" label="Appreciations Sent" index={1}  lableColor="#000" subMenu={false} subItem={true}/></MenuItem>
         </Menu>
       <NavItem icon={<HelpOutline sx={{ color: "#fff" }} />} route="help" label="Help" index={4} />
       <NavItem icon={<AdminPanelSettings sx={{ color: "#fff" }} />} show={appReducerState.userRole === "admin"} route="allAppreciation" label="Appreciations (Admin)" index={5} />
 
     </List>
   );
-  function NavItem({ subMenu=false, icon = null, lableColor="primary.light", route = "", label = "", show = true, index = 0, subItem=false }) {
+  function NavItem({handleClose=null, subMenu=false, icon = null, lableColor="primary.light", route = "", label = "", show = true, index = 0, subItem=false }) {
     return <NavLink
       to={subMenu===false&&`/${route}`}
       style={{
@@ -122,8 +122,11 @@ const SelectedListItem = () => {
     >
       <NavListItemButton
         disableRipple
-        selected={appReducerState.selectedNavIndex === index}
+        selected={subItem===false && appReducerState.selectedNavIndex === index}
         onClick={(e) => {
+          if(handleClose) {
+            handleClose()
+          }
           subMenu===false ? handleListItemClick(e, index) : handleClick(e, index);
         }}
         sx={{width: "100%"}}

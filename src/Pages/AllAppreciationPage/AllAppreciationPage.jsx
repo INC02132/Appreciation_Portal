@@ -1,5 +1,5 @@
 import { createRef, useCallback, useState, useEffect } from "react";
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { setSelectedNavIndex } from '../../redux/reducers/appReducer';
 import { useMsal } from "@azure/msal-react";
 import { baseUrl } from "../../Utils/serviceRequest";
@@ -42,6 +42,7 @@ const AllAppreciationPage = () => {
 
   const [successMessage, setSuccessMessage] = useState(false);
   const [failureMessage, setFailureMessage] = useState(false);
+  const [pendingMessage, setpendingMessage] = useState(false);
 
 
   const handleCloseToastMessage = (event, reason) => {
@@ -50,6 +51,7 @@ const AllAppreciationPage = () => {
     }
     setSuccessMessage(false);
     setFailureMessage(false);
+    setpendingMessage(false);
   };
 
 
@@ -81,8 +83,13 @@ const AllAppreciationPage = () => {
       }
       let res = await axios.get(url);
       if (res.data.result === "success") {
-        console.log(res.data.data)
-        setallCard(prevState => [...prevState, ...res.data.data]);
+        let data = res.data.data;
+        data?.forEach((element, index) => {
+          let templateData = appReducer.templateData?.find(temp => temp.templateId===element.templateId);
+          let obj = {...element, template:templateData};
+          data[index]=obj;
+        })
+        setallCard(prevState => [...prevState, ...data]);
         setPageNumber(prev => prev + 1)
       }
     } catch (error) {
@@ -90,6 +97,19 @@ const AllAppreciationPage = () => {
     }
   };
   const [selectedCard, setSelectedCard] = useState(null);
+
+  const appReducer = useSelector(state => state.appReducer);
+
+
+  const handleCardSelection = (cardData) => {
+    let templateData = appReducer.templateData?.find(element => element.templateId===cardData.templateId)
+    if(!templateData) {
+      setpendingMessage(true);
+      return;
+    }
+    let obj = {...cardData, template: templateData};
+    setSelectedCard(obj);
+  }
 
   const changeStatus = async (_status) => {
     // let url = `${baseUrl}/appreciation/updateStatus/${selectedCard.valueCardId}?status=${_status}`;
@@ -119,7 +139,7 @@ const AllAppreciationPage = () => {
 
   useEffect(() => {
     fetchData();
-  }, [status]);
+  }, [status, appReducer.templateData]);
 
   const [open, setOpen] = useState(false);
   const handleClickOpenDialog = () => {
@@ -168,7 +188,7 @@ const AllAppreciationPage = () => {
               height: "95%",
             }}
           >
-            <CardPanel statusHandler={statusHandler} fetchData={fetchData} panelTitle={"All Appreciation"} cards={allCard} setSelectedCard={setSelectedCard} />
+            <CardPanel statusHandler={statusHandler} fetchData={fetchData} panelTitle={"All Appreciation"} cards={allCard} setSelectedCard={handleCardSelection} />
           </Paper>
         </Grid>
         <Grid
@@ -300,6 +320,20 @@ const AllAppreciationPage = () => {
             sx={{ width: "100%", color: "#fff", backgroundColor: "red" }}
           >
             Some error occured!
+          </Alert>
+        </Snackbar>
+
+        <Snackbar
+          open={pendingMessage}
+          autoHideDuration={6000}
+          onClose={handleCloseToastMessage}
+        >
+          <Alert
+            onClose={handleCloseToastMessage}
+            severity="error"
+            sx={{ width: "100%", color: "#fff", backgroundColor: "red" }}
+          >
+            Template Loading Please Wait...
           </Alert>
         </Snackbar>
       </Grid>

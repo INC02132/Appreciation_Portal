@@ -4,14 +4,13 @@ import { toPng } from "html-to-image";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import Grid from "@mui/material/Grid";
-import { Paper } from "@mui/material";
+import { Alert, Paper, Snackbar } from "@mui/material";
 import { createRef, useCallback, useState, useEffect } from "react";
 import axios from "axios";
 import { styled } from "@mui/system";
 import { useMsal } from "@azure/msal-react";
-import { TimeStampToDateString } from "../../Utils/TimeStampToString";
 import { setSelectedNavIndex } from "../../redux/reducers/appReducer";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { baseUrl } from "../../Utils/serviceRequest";
 import CardPanel from "../../Components/CardPanel/CardPanel";
 
@@ -63,14 +62,37 @@ export default function AppreciationSent() {
       );
       if (res.status === 200) {
         setCount(res.data.count);
-        setSentCard(res.data.data);
+        let data = res.data.data;
+        data?.forEach((element, index) => {
+          let templateData = appReducer.templateData?.find(temp => temp.templateId===element.templateId);
+          let obj = {...element, template:templateData};
+          data[index]=obj;
+        })
+        setSentCard(data);
       }
     } catch (error) { }
   };
   const [selectedCard, setSelectedCard] = useState(null);
+  const appReducer = useSelector(state => state.appReducer);
+  const [pendingMessage, setpendingMessage] = useState(false);
+
+  const handleCloseToastMessage = () => {
+    setpendingMessage(false);
+  }
+
+  const handleCardSelection = (cardData) => {
+  
+    let templateData = appReducer.templateData?.find(element => element.templateId===cardData.templateId)
+    if(!templateData) {
+      setpendingMessage(true);
+      return;
+    }
+    let obj = {...cardData, template: templateData};
+    setSelectedCard(obj);
+  }
   useEffect(() => {
     fetchData();
-  }, []);
+  }, [appReducer.templateData]);
 
   return (
     <Box sx={{ height: "calc(100vh - 52px)", width: "95%" }}>
@@ -106,7 +128,7 @@ export default function AppreciationSent() {
             <CardPanel
               panelTitle={"Appreciation Sent " + "(" + count + ")"}
               cards={sentCard}
-              setSelectedCard={setSelectedCard}
+              setSelectedCard={handleCardSelection}
               type={"To"}
             />
           </Paper>
@@ -181,6 +203,19 @@ export default function AppreciationSent() {
           </>}
         </Grid>
       </Grid>
+      <Snackbar
+          open={pendingMessage}
+          autoHideDuration={6000}
+          onClose={handleCloseToastMessage}
+        >
+          <Alert
+            onClose={handleCloseToastMessage}
+            severity="error"
+            sx={{ width: "100%", color: "#fff", backgroundColor: "red" }}
+          >
+            Template Loading Please Wait...
+          </Alert>
+        </Snackbar>
     </Box>
   );
 }
