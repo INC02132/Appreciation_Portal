@@ -57,7 +57,7 @@ const LoginPage = () => {
             sx={{
               backgroundColor: "white",
               borderRadius: "10px",
-              width: "30rem",
+              width: "24rem",
               display: "flex",
               flexDirection: "column",
               alignItems: "center",

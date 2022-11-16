@@ -10,14 +10,14 @@ export default function CommentDialog(props) {
 
   return (
     <div>
-      <Dialog open={props.open} onClose={props.handleCloseDialog}>
-        <DialogTitle>Reject</DialogTitle>
+      <Dialog open={props.open} onClose={props.handleCloseDialog} sx={{margin: "1rem"}}>
+        <DialogTitle sx={{fontSize: "1rem"}}>Please mention your reason for rejection</DialogTitle>
         <DialogContent>
-        <TextField placeholder='Add a comment' variant="outlined" multiline rows="3" onChange={(e) => props.handleCommentChange(e)}/>
+        <TextField fullWidth placeholder='Add a comment' variant="outlined" multiline rows="3" onChange={(e) => props.handleCommentChange(e)}/>
         </DialogContent>
         <DialogActions>
-            <Button variant="contained" sx={{ backgroundColor: "red", marginTop: "1rem", marginBottom: "1rem", textTransform: "none", fontWeight: "400"}} onClick={props.handleReject}>Reject</Button>
-            <Button variant="outlined" sx={{ marginTop: "1rem", marginBottom: "1rem", marginRight: "1rem", textTransform: "none", fontWeight: "400"}} onClick={props.handleCloseDialog}>Cancel</Button>
+            <Button variant="contained" sx={{ backgroundColor: "red", marginBottom: "1rem", textTransform: "none", fontWeight: "400"}} onClick={props.handleReject}>Reject</Button>
+            <Button variant="outlined" sx={{ marginBottom: "1rem", marginRight: "1rem", textTransform: "none", fontWeight: "400"}} onClick={props.handleCloseDialog}>Cancel</Button>
           </DialogActions>
       </Dialog>
     </div>
