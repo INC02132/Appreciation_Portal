@@ -148,7 +148,7 @@ function ValueCardsDashboard({ setSelectedTemplate }) {
                     let detail = leader[1];
                     if (index === 0) return;
                     return (
-                      <Paper sx={{ backgroundColor: index%2===1 ? "#fff": "#ddd", padding: "0.2em", height: "100%", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+                      <Paper key={index} sx={{ backgroundColor: index%2===1 ? "#fff": "#ddd", padding: "0.2em", height: "100%", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
                         <Box sx={{ width: "20%" }}>
                           <Typography sx={{ fontWeight: "bold", color: "#007AD4" }}>
                             #{index + 1}
@@ -175,8 +175,8 @@ function ValueCardsDashboard({ setSelectedTemplate }) {
                   })
                 }
                 {
-                  leaderBoardData.length === 0 && [...Array(4).keys()].map((arr) => (
-                    <Paper sx={{ padding: "0.2em", height: "100%", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+                  leaderBoardData.length === 0 && [...Array(4).keys()].map((arr, index) => (
+                    <Paper key={index} sx={{ padding: "0.2em", height: "100%", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
                       <Skeleton height={"100%"} width={"100%"} />
                     </Paper>
                   ))

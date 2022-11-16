@@ -83,13 +83,13 @@ const AllAppreciationPage = () => {
       }
       let res = await axios.get(url);
       if (res.data.result === "success") {
-        let data = res.data.data;
+        let data = [...allCard, ...res.data.data];
         data?.forEach((element, index) => {
           let templateData = appReducer.templateData?.find(temp => temp.templateId===element.templateId);
           let obj = {...element, template:templateData};
           data[index]=obj;
         })
-        setallCard(prevState => [...prevState, ...data]);
+        setallCard(data);
         setPageNumber(prev => prev + 1)
       }
     } catch (error) {

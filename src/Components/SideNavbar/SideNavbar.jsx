@@ -108,7 +108,7 @@ const SelectedListItem = () => {
         <MenuItem sx={{width: "100%", padding: "0 0.5em"}}><NavItem handleClose={handleClose} icon={<BarChart sx={{ color: "#1D1D1D" }} />} route="sent" label="Appreciations Sent" index={1}  lableColor="#000" subMenu={false} subItem={true}/></MenuItem>
         </Menu>
       <NavItem icon={<HelpOutline sx={{ color: "#fff" }} />} route="help" label="Help" index={4} />
-      <NavItem icon={<AdminPanelSettings sx={{ color: "#fff" }} />} show={appReducerState.userRole === "admin"} route="allAppreciation" label="Appreciations (Admin)" index={5} />
+      {appReducerState.userRole==="admin" &&<NavItem icon={<AdminPanelSettings sx={{ color: "#fff" }} />} show={appReducerState.userRole === "admin"} route="allAppreciation" label="Appreciations (Admin)" index={5} />}
 
     </List>
   );
