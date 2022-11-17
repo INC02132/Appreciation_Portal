@@ -212,7 +212,7 @@ export default function AppreciationReceived() {
           <Alert
             onClose={handleCloseToastMessage}
             severity="error"
-            sx={{ width: "100%", color: "#fff", backgroundColor: "red" }}
+            sx={{ width: "100%", color: "#000", backgroundColor: "#ffa701" }}
           >
             Template Loading Please Wait...
           </Alert>

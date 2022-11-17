@@ -330,8 +330,8 @@ const AllAppreciationPage = () => {
         >
           <Alert
             onClose={handleCloseToastMessage}
-            severity="error"
-            sx={{ width: "100%", color: "#fff", backgroundColor: "red" }}
+            severity="warning"
+            sx={{ width: "100%", color: "#000", backgroundColor: "#ffa701" }}
           >
             Template Loading Please Wait...
           </Alert>
