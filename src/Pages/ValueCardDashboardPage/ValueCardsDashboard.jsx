@@ -71,9 +71,9 @@ function ValueCardsDashboard({ setSelectedTemplate }) {
     <div>
       <Box className="wbScroll" sx={{ height: "calc(100vh - 52px)" }}>
         <Stack spacing={3} sx={{ margin: "1rem 0 0 1rem" }}>
-          <Grid sx={{ height: "230px" }} container gap={2}>
+          <Grid sx={{ height: "270px" }} container gap={2}>
             <Grid sx={{ height: "100%" }} item>
-              <Paper sx={{ backgroundSize: "100%", background: "url(./leaderboardImage2.jpg) no-repeat center", height: "100%", width: "15.5rem", position: "relative", display: "flex", justifyContent: "center", alignItems: "center" }}>
+              <Paper sx={{ backgroundSize: "100%", background: "url(./Leaderboard.jpg) no-repeat center", height: "100%", width: "15.5rem", position: "relative", display: "flex", justifyContent: "center", alignItems: "center" }}>
                 {/* <Box style={{ transform: "rotate(-35deg)", position: "absolute", top: "-16px", left: "-10px" }}>
                   <EmojiEvents sx={{ color: "#ff900d", fontSize: "40px" }} />
                   <Typography sx={{ color: "orange" }}>Rank #1</Typography>
@@ -120,7 +120,7 @@ function ValueCardsDashboard({ setSelectedTemplate }) {
                 Leaderboard
               </Typography>
               <List sx={{ display: "flex", flexDirection: "column", gap: "10px", justifyContent: "stretch", alignContent: "stretch" }}>
-                {/* <Paper elevation={0} sx={{ backgroundColor: "#ddd", padding: "0.2em", height: "100%", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+                <Paper elevation={0} sx={{  padding: "0.2em", height: "100%", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
                   <Box sx={{ width: "20%" }}>
                     <Typography sx={{ fontWeight: "bold" }}>
                       Rank
@@ -141,7 +141,7 @@ function ValueCardsDashboard({ setSelectedTemplate }) {
                       Total Cards
                     </Typography>
                   </Box>
-                </Paper> */}
+                </Paper>
                 {
                   leaderBoardData?.map((leader, index) => {
                     let count = leader[0];
