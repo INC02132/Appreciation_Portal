@@ -138,7 +138,7 @@ function ValueCardsDashboard({ setSelectedTemplate }) {
                   </Box>
                   <Box sx={{ width: "20%", display: "flex", justifyContent: "center" }}>
                     <Typography sx={{ fontWeight: "bold" }}>
-                      Total Cards
+                      Cards Received
                     </Typography>
                   </Box>
                 </Paper>
