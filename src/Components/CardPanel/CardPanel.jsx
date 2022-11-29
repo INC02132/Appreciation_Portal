@@ -9,7 +9,7 @@ import axios from 'axios';
 import { baseUrl } from '../../Utils/serviceRequest';
 import { useSelector } from 'react-redux';
 
-const CardPanel = ({ statusHandler, fetchData = null, panelTitle = "", cards, setSelectedCard, type = "" }) => {
+const CardPanel = ({ isLoading, statusHandler, fetchData = null, panelTitle = "", cards, setSelectedCard, type = "" }) => {
     const [searchText, setSearchText] = useState("");
 
     const [statusType, setStatusType] = useState("all");
@@ -170,7 +170,7 @@ const CardPanel = ({ statusHandler, fetchData = null, panelTitle = "", cards, se
                             })}
                             {
                                 (cards?.length === 0 || cards === null) && (
-                                    cards === null ?
+                                    isLoading ?
                                         <Box sx={{ width: "100%", height: "250px", display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center" }}>
                                             <Blocks
                                                 visible={true}

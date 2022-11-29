@@ -33,9 +33,13 @@ const AllAppreciationPage = () => {
   dispatch(setSelectedNavIndex(5));
   const ref = createRef();
 
+  //required for loading icon when status changes or when the card panel loads for first time
+  const [isLoading, setIsLoading] = useState(true);
+
   const statusHandler = (_status) => {
     setPageNumber(1);
     setallCard([]);
+    setIsLoading(true);
     if (_status === "all") _status = "";
     setStatus(_status);
   }
@@ -85,11 +89,14 @@ const AllAppreciationPage = () => {
       if (res.data.result === "success") {
         let data = [...allCard, ...res.data.data];
         data?.forEach((element, index) => {
-          let templateData = appReducer.templateData?.find(temp => temp.templateId===element.templateId);
-          let obj = {...element, template:templateData};
-          data[index]=obj;
+          let templateData = appReducer.templateData?.find(temp => temp.templateId === element.templateId);
+          let obj = { ...element, template: templateData };
+          data[index] = obj;
         })
         setallCard(data);
+        if (pageNumber === 1) {
+          setIsLoading(false);
+        }
         setPageNumber(prev => prev + 1)
       }
     } catch (error) {
@@ -102,12 +109,12 @@ const AllAppreciationPage = () => {
 
 
   const handleCardSelection = (cardData) => {
-    let templateData = appReducer.templateData?.find(element => element.templateId===cardData.templateId)
-    if(!templateData) {
+    let templateData = appReducer.templateData?.find(element => element.templateId === cardData.templateId)
+    if (!templateData) {
       setpendingMessage(true);
       return;
     }
-    let obj = {...cardData, template: templateData};
+    let obj = { ...cardData, template: templateData };
     setSelectedCard(obj);
   }
 
@@ -188,7 +195,7 @@ const AllAppreciationPage = () => {
               height: "95%",
             }}
           >
-            <CardPanel statusHandler={statusHandler} fetchData={fetchData} panelTitle={"All Appreciation"} cards={allCard} setSelectedCard={handleCardSelection} />
+            <CardPanel isLoading={isLoading} statusHandler={statusHandler} fetchData={fetchData} panelTitle={"All Appreciation"} cards={allCard} setSelectedCard={handleCardSelection} />
           </Paper>
         </Grid>
         <Grid
