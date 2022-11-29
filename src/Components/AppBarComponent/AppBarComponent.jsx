@@ -2,6 +2,8 @@ import { useMsal } from '@azure/msal-react';
 import { AppBar, Avatar, Box, Button, Card, CardContent, IconButton, Toolbar, Typography } from '@mui/material'
 import React, { useState } from 'react'
 import { useEffect } from 'react';
+import { useNavigate } from 'react-router';
+import { Link } from 'react-router-dom';
 
 
 function handleLogout(instance) {
@@ -83,7 +85,7 @@ const AppBarComponent = () => {
 		</div>
 	);
 
-  
+  // const navigate = useNavigate();
 
   return (
       <AppBar
@@ -94,10 +96,10 @@ const AppBarComponent = () => {
         position="sticky"
       >
         <Toolbar style={toolbarStyle}>
-          <div className="logo">
+          <Link className="logo" sx={{cursor: "pointer"}} to={"/appreciate"}>
             <img src="./logo.png" alt=" " height="42rem"/>
             {/* <Typography sx={{color: "#00518D"}}>Incture Appreciation Portal</Typography> */}
-          </div>
+          </Link>
 
           <Box sx={{ flexGrow: 1 }} />
           <Box sx={{ display: { xs: "none", md: "flex" } }}>
