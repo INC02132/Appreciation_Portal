@@ -269,14 +269,14 @@ const AllAppreciationPage = () => {
                   Download
                 </Button>
               }
-              {
+              {/* {
                 selectedCard.status === "approved" &&
                 <ButtonGroup>
                   <Button variant="contained" sx={{ backgroundColor: "red", marginTop: "1rem", textTransform: "none", fontWeight: "400" }} onClick={() => changeStatus("rejected")}>
                     Reject
                   </Button>
                 </ButtonGroup>
-              }
+              } */}
               {
                 selectedCard.status === "pending" &&
                 <>
