@@ -14,7 +14,7 @@ import {
 import { setSelectedNavIndex } from "../../redux/reducers/appReducer";
 import { useDispatch, useSelector } from "react-redux";
 import "./SideNavbar.css";
-import { AdminPanelSettings, BarChart, CardGiftcardOutlined, HelpOutline, Stars } from "@mui/icons-material";
+import { AdminPanelSettings, Analytics, BarChart, CardGiftcardOutlined, HelpOutline, Report, Stars } from "@mui/icons-material";
   import Menu from '@mui/material/Menu';
   import MenuItem from '@mui/material/MenuItem'; 
   import AccountBoxIcon from '@mui/icons-material/AccountBox';
@@ -109,6 +109,7 @@ const SelectedListItem = () => {
         </Menu>
       <NavItem icon={<HelpOutline sx={{ color: "#fff" }} />} route="help" label="Help" index={4} />
       {appReducerState.userRole==="admin" &&<NavItem icon={<AdminPanelSettings sx={{ color: "#fff" }} />} show={appReducerState.userRole === "admin"} route="allAppreciation" label="Appreciations (Admin)" index={5} />}
+      {appReducerState.userRole==="admin" &&<NavItem icon={<Analytics sx={{ color: "#fff" }} />} show={appReducerState.userRole === "admin"} route="analytics" label="Analytics" index={6} />}
 
     </List>
   );

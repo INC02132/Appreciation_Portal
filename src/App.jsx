@@ -15,6 +15,7 @@ import axios from "axios";
 import { baseUrl } from "./Utils/serviceRequest";
 import { useMsal } from "@azure/msal-react";
 import Help from "./Pages/Help/Help";
+import AnalyticsPage from "./Pages/AnalyticsPage/AnalyticsPage";
 
 function App() {
 
@@ -94,6 +95,10 @@ function App() {
               {
                 userRole === "admin" &&
                 <Route exact path="/allAppreciation" component={AllAppreciationPage} />
+              }
+              {
+                userRole === "admin" &&
+                <Route exact path="/analytics" component={AnalyticsPage} />
               }
               <Redirect exact from="*" to="/appreciate" />
             </Switch>
